@@ -1,14 +1,14 @@
-import { createBrowserRouter } from "react-router-dom"
-import { DefaultLayout } from "./layout/DefaultLayout"
-import TestPage from "@pages/TestPage"
-
+import { createBrowserRouter } from "react-router-dom";
+import TestPage from "@pages/TestPage";
+import MainPage from "@pages/MainPage";
 
 export const router = createBrowserRouter([
-    {
-        path:"/",
-        element:<DefaultLayout/>,
-        children:[
-            {path:"", element:<TestPage/>}
-        ]
-    }
-])
+  {
+    path: "/test",
+    element: <TestPage />,
+  },
+  {
+    path: "/",
+    element: <MainPage />,
+  },
+]);
