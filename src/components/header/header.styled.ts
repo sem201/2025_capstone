@@ -16,6 +16,8 @@ export const HeaderWrapper = styled.section`
   letter-spacing: ${({ theme }) => theme.fonts.body4["letter-spacing"]};
 
   color: ${({ theme }) => theme.colors.B10};
+
+  box-sizing: border-box;
 `;
 
 export const LoginInfoContainer = styled.div`

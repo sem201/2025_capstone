@@ -31,7 +31,7 @@ export const theme = {
 
     // B/W
     Black: "#272424",
-    WHITE: "#FF",
+    WHITE: "#ffffff",
 
     // Nuse Call
     N40: "#E58900",
@@ -59,5 +59,7 @@ export const theme = {
     body2: fontGenerator("pretendard", "1rem", "500"),
     body3: fontGenerator("pretendard", "0.875rem", "600"),
     body4: fontGenerator("pretendard", "0.75rem", "600", "1.42"),
+
+    small: fontGenerator("pretendard", "0.625rem", "500"),
   },
 };

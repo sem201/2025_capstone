@@ -88,6 +88,14 @@ declare module "styled-components" {
         "line-height": string;
         "letter-spacing": string;
       };
+
+      small: {
+        "font-family": string;
+        "font-size": string;
+        "font-weight": string;
+        "line-height": string;
+        "letter-spacing": string;
+      };
     };
   }
 }
