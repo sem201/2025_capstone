@@ -1,5 +1,6 @@
 import Header from "@components/header/Header";
 import LogFrame from "@components/logFrame/LogFrame";
+import MapHeader from "@components/mainview/MapHeader";
 import styled from "styled-components";
 const MainPage = () => {
   return (
@@ -11,7 +12,10 @@ const MainPage = () => {
           <LogFrame />
           <div style={{ border: "1px solid black" }}></div>
         </SideBar>
-        <div></div>
+        <MainView>
+          <MapHeader />
+          <div></div>
+        </MainView>
       </Container>
     </>
   );
@@ -33,8 +37,15 @@ const Container = styled.div`
   }
 `;
 
-const SideBar = styled.div`
+const SideBar = styled.section`
+  min-width: 330px;
   box-sizing: border-box;
   display: grid;
   grid-template-rows: 1fr 1fr 2.5fr;
+`;
+
+const MainView = styled.section`
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 `;
