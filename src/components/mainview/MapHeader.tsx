@@ -5,13 +5,37 @@ import emergency from "@assets/icons/emergency.svg";
 import normal from "@assets/icons/normal.svg";
 import nurse from "@assets/icons/nursecall.svg";
 
-const MapHeader = () => {
+const MapHeader = ({
+  currentFloor,
+  setCurrentFloor,
+}: {
+  currentFloor: string;
+  setCurrentFloor: React.Dispatch<React.SetStateAction<string>>;
+}) => {
   return (
     <Wrapper>
       <S.FloorWrapper>
-        <FloorButton>전체</FloorButton>
-        <FloorButton>1층</FloorButton>
-        <FloorButton>2층</FloorButton>
+        <FloorButton
+          currentFloor={currentFloor}
+          setCurrentFloor={setCurrentFloor}
+          floor="전체"
+        >
+          전체
+        </FloorButton>
+        <FloorButton
+          currentFloor={currentFloor}
+          setCurrentFloor={setCurrentFloor}
+          floor="1"
+        >
+          1층
+        </FloorButton>
+        <FloorButton
+          currentFloor={currentFloor}
+          setCurrentFloor={setCurrentFloor}
+          floor="2"
+        >
+          2층
+        </FloorButton>
       </S.FloorWrapper>
       <S.UserStatusWrapper>
         <S.state>

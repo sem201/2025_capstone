@@ -1,10 +1,12 @@
+import React from "react";
 import styled from "styled-components";
 import Right from "@assets/icons/Right.svg";
 import emergency from "@assets/icons/emergency.svg";
 import * as S from "./logFrame.styled";
 import RedCheckButton from "@components/common/RedCheckButton";
 
-const LogFrame = () => {
+const LogFrame = React.memo(() => {
+  // 층수 변경시 얘도 리렌더링 되는 것을 막음.
   return (
     <Wrapper>
       <S.LogoTitleHeader>
@@ -46,7 +48,7 @@ const LogFrame = () => {
       </div>
     </Wrapper>
   );
-};
+});
 
 export default LogFrame;
 

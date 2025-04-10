@@ -1,8 +1,11 @@
 import Header from "@components/header/Header";
 import LogFrame from "@components/logFrame/LogFrame";
 import MapHeader from "@components/mainview/MapHeader";
+import MapContainer from "@components/map/MapContainer";
+import { useState } from "react";
 import styled from "styled-components";
 const MainPage = () => {
+  const [currentFloor, setCurrentFloor] = useState("전체");
   return (
     <>
       <Header />
@@ -13,8 +16,11 @@ const MainPage = () => {
           <div style={{ border: "1px solid black" }}></div>
         </SideBar>
         <MainView>
-          <MapHeader />
-          <div></div>
+          <MapHeader
+            currentFloor={currentFloor}
+            setCurrentFloor={setCurrentFloor}
+          />
+          <MapContainer currentFloor={currentFloor} />
         </MainView>
       </Container>
     </>
