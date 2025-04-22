@@ -25,16 +25,16 @@ const MapHeader = ({
         <FloorButton
           currentFloor={currentFloor}
           setCurrentFloor={setCurrentFloor}
-          floor="1"
+          floor="5"
         >
-          1층
+          5층
         </FloorButton>
         <FloorButton
           currentFloor={currentFloor}
           setCurrentFloor={setCurrentFloor}
-          floor="2"
+          floor="6"
         >
-          2층
+          6층
         </FloorButton>
       </S.FloorWrapper>
       <S.UserStatusWrapper>
