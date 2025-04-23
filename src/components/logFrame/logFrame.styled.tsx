@@ -21,11 +21,11 @@ export const Table = styled.table`
   }
 `;
 export const TableRow = styled.tr`
+  border-width: 1.5px;
   background-color: #eee;
   color: ${({ theme }) => theme.colors.B60};
 
   border-color: ${({ theme }) => theme.colors.B20};
-  /* border-color: black; */
   border-style: solid;
   border-left: 1px;
   border-right: 1px;
@@ -40,8 +40,4 @@ export const TableRow = styled.tr`
   th {
     min-width: 50px;
   }
-`;
-
-export const TableHeader = styled.thead`
-  /* background-color: #eee; */
 `;

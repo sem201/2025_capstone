@@ -5,8 +5,8 @@ export const ButtonWrapper = styled.button<{
   bgcolor: string;
   bordercolor: string;
 }>`
-  padding: 0;
-  width: 50px;
+  padding: 0 4px;
+  width: fit-content;
   height: 20px;
 
   border-radius: 6px;
@@ -18,6 +18,12 @@ export const ButtonWrapper = styled.button<{
   background-color: ${({ theme }) => theme.colors.WHITE};
 
   font-size: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 2px;
   &:hover {
     background-color: ${(props) => props.bgcolor};
   }
