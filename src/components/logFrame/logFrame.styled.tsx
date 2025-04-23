@@ -12,12 +12,13 @@ export const Table = styled.table`
   margin-top: 14px;
   border-collapse: collapse;
   text-align: left;
-
-  font-family: ${({ theme }) => theme.fonts.small["font-family"]};
-  font-size: ${({ theme }) => theme.fonts.small["font-size"]};
-  font-weight: ${({ theme }) => theme.fonts.small["font-weight"]};
-  line-height: ${({ theme }) => theme.fonts.small["line-height"]};
-  letter-spacing: ${({ theme }) => theme.fonts.small["letter-spacing"]};
+  td {
+    font-family: ${({ theme }) => theme.fonts.body5["font-family"]};
+    font-size: ${({ theme }) => theme.fonts.body5["font-size"]};
+    font-weight: ${({ theme }) => theme.fonts.body5["font-weight"]};
+    line-height: ${({ theme }) => theme.fonts.body5["line-height"]};
+    letter-spacing: ${({ theme }) => theme.fonts.body5["letter-spacing"]};
+  }
 `;
 export const TableRow = styled.tr`
   background-color: #eee;
@@ -29,6 +30,12 @@ export const TableRow = styled.tr`
   border-left: 1px;
   border-right: 1px;
 
+  font-family: ${({ theme }) => theme.fonts.body4["font-family"]};
+  font-size: ${({ theme }) => theme.fonts.body4["font-size"]};
+  font-weight: ${({ theme }) => theme.fonts.body4["font-weight"]};
+  line-height: ${({ theme }) => theme.fonts.body4["line-height"]};
+  letter-spacing: ${({ theme }) => theme.fonts.body4["letter-spacing"]};
+
   td,
   th {
     min-width: 50px;
@@ -37,8 +44,4 @@ export const TableRow = styled.tr`
 
 export const TableHeader = styled.thead`
   /* background-color: #eee; */
-`;
-
-const TableHeaderCell = styled.th`
-  text-align: left;
 `;

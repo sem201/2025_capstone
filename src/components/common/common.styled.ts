@@ -17,7 +17,7 @@ export const ButtonWrapper = styled.button<{
   color: ${(props) => props.color};
   background-color: ${({ theme }) => theme.colors.WHITE};
 
-  font-size: 8px;
+  font-size: 10px;
   &:hover {
     background-color: ${(props) => props.bgcolor};
   }

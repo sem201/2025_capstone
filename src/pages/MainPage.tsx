@@ -44,7 +44,7 @@ const Container = styled.div`
 `;
 
 const SideBar = styled.section`
-  min-width: 330px;
+  min-width: 380px;
   box-sizing: border-box;
   display: grid;
   grid-template-rows: 1fr 1fr 2.5fr;

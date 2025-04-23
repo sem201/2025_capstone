@@ -59,6 +59,7 @@ export const theme = {
     body2: fontGenerator("pretendard", "1rem", "500"),
     body3: fontGenerator("pretendard", "0.875rem", "600"),
     body4: fontGenerator("pretendard", "0.75rem", "600", "1.42"),
+    body5: fontGenerator("pretendard", "0.75rem", "400"),
 
     small: fontGenerator("pretendard", "0.625rem", "500"),
   },
