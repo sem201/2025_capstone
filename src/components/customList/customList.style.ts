@@ -17,7 +17,7 @@ export const InputContainer = styled.div`
   justify-content: space-between;
   position: relative;
   input {
-    width: 65%;
+    width: 80%;
     height: 30px;
     border-radius: 2px;
     border: 1px solid ${({ theme }) => theme.colors.B10};
@@ -29,17 +29,4 @@ export const InputContainer = styled.div`
     position: absolute;
     left: 10px;
   }
-`;
-
-export const ButtonContainer = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 30px;
-  height: 30px;
-  border-radius: 2px;
-  border: 1px solid ${({ theme }) => theme.colors.B10};
-
-  cursor: pointer;
 `;
