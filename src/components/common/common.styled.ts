@@ -5,9 +5,9 @@ export const ButtonWrapper = styled.button<{
   bgcolor: string;
   bordercolor: string;
 }>`
-  padding: 0 4px;
-  width: fit-content;
-  height: 20px;
+  padding: 8px 0px;
+  width: 65px;
+  height: 25px;
 
   border-radius: 6px;
   border-width: 0.81px;
@@ -27,4 +27,9 @@ export const ButtonWrapper = styled.button<{
   &:hover {
     background-color: ${(props) => props.bgcolor};
   }
+  font-family: ${({ theme }) => theme.fonts.small["font-family"]};
+  font-size: ${({ theme }) => theme.fonts.small["font-size"]};
+  font-weight: ${({ theme }) => theme.fonts.small["font-weight"]};
+  line-height: ${({ theme }) => theme.fonts.small["line-height"]};
+  letter-spacing: ${({ theme }) => theme.fonts.small["letter-spacing"]};
 `;

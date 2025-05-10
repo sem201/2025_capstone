@@ -28,7 +28,8 @@
       "@layout/*": ["src/layout/*"],
       "@pages/*": ["src/pages/*"],
       "@assets/*": ["src/assets/*"],
-      "@styles/*": ["src/styles/*"]
+      "@styles/*": ["src/styles/*"],
+      "@types/*": ["src/types/*"]
     }
   },
   "include": ["src"]

@@ -3,10 +3,19 @@ import Header from "@components/header/Header";
 import LogFrame from "@components/logFrame/LogFrame";
 import MapHeader from "@components/mainview/MapHeader";
 import MapContainer from "@components/map/MapContainer";
+import LogPopup from "@components/modal/LogPopup";
+import { LogType } from "../types/types";
 import { useState } from "react";
 import styled from "styled-components";
 const MainPage = () => {
   const [currentFloor, setCurrentFloor] = useState("전체");
+  const tmp: LogType = {
+    emergency: true,
+    problem: "널스콜",
+    name: "홍길동",
+    locate: "5401호",
+    time: "2023-10-10 12:00",
+  };
   return (
     <>
       <Header />
@@ -22,6 +31,7 @@ const MainPage = () => {
             setCurrentFloor={setCurrentFloor}
           />
           <MapContainer currentFloor={currentFloor} />
+          <LogPopup temp={tmp} />
         </MainView>
       </Container>
     </>
@@ -53,4 +63,5 @@ const MainView = styled.section`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  position: relative;
 `;

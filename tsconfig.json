@@ -6,10 +6,10 @@
       "@hooks/*": ["src/hooks/*"],
       "@layout/*": ["src/layout/*"],
       "@pages/*": ["src/pages/*"],
-      "@assets/*": ["src/assets/*"]
+      "@assets/*": ["src/assets/*"],
+      "@types/*": ["src/types/*"]
     },
-    "types": ["node","vite-plugin-svgr/client"]
-    
+    "types": ["node", "vite-plugin-svgr/client"]
   },
   "exclude": ["node_modules", "dist"],
   "files": [],
