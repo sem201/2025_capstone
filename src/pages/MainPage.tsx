@@ -8,6 +8,7 @@ import { LogType } from "../types/types";
 import { useState } from "react";
 import styled from "styled-components";
 import ConfirmPopup from "@components/modal/ConfirmPopup";
+import EmergencyLogFrame from "@components/logFrame/EmergencyLogFrame";
 const MainPage = () => {
   const [currentFloor, setCurrentFloor] = useState("전체");
   const [isLogPopupVisible, setIsLogPopupVisible] = useState(true);
@@ -24,8 +25,8 @@ const MainPage = () => {
       <Header />
       <Container>
         <SideBar>
-          <LogFrame />
-          <LogFrame />
+          <EmergencyLogFrame openPopup={() => setIsLogPopupVisible(true)} />
+          <LogFrame openPopup={() => setIsLogPopupVisible(true)} />
           <CustomList />
         </SideBar>
         <MainView>
@@ -49,6 +50,10 @@ const MainPage = () => {
             <ConfirmPopup
               temp={tmp}
               closePopup={() => setIsConfirmVisible(false)}
+              submitPopup={() => {
+                setIsConfirmVisible(false);
+                setIsLogPopupVisible(false);
+              }}
             />
           </DarkBackground>
         </>

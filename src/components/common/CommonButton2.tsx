@@ -1,8 +1,14 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
 
-const CommonButton2 = ({ children }: { children: ReactNode }) => {
-  return <Wrapper>{children}</Wrapper>;
+const CommonButton2 = ({
+  children,
+  onClick,
+}: {
+  children: ReactNode;
+  onClick: () => void;
+}) => {
+  return <Wrapper onClick={onClick}>{children}</Wrapper>;
 };
 
 export default CommonButton2;

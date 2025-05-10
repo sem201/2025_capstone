@@ -24,6 +24,7 @@ export const ButtonWrapper = styled.button<{
   justify-content: center;
 
   gap: 2px;
+  cursor: pointer;
   &:hover {
     background-color: ${(props) => props.bgcolor};
   }

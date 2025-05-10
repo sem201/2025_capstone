@@ -9,9 +9,11 @@ import CommonButton2 from "@components/common/CommonButton2";
 const ConfirmPopup = ({
   temp,
   closePopup,
+  submitPopup,
 }: {
   temp: LogType;
   closePopup: () => void;
+  submitPopup: () => void;
 }) => {
   return (
     <Wrapper>
@@ -42,7 +44,7 @@ const ConfirmPopup = ({
           <p>아래에 담당자 성명을 입력해주세요.</p>
           <input type="text" />
         </S.ConfirmPopupBody>
-        <CommonButton2>
+        <CommonButton2 onClick={submitPopup}>
           <p style={{ color: "white", margin: "0.5em 0" }}>제출하기</p>
         </CommonButton2>
       </S.PopupBody>

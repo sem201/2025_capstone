@@ -41,3 +41,27 @@ export const TableRow = styled.tr`
     min-width: 50px;
   }
 `;
+
+export const Pagenation = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+
+  button {
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: inherit;
+    border: none;
+    border-radius: 4px;
+    color: ${({ theme }) => theme.colors.B30};
+
+    &.active {
+      color: ${({ theme }) => theme.colors.B60};
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+`;
