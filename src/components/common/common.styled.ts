@@ -27,9 +27,9 @@ export const ButtonWrapper = styled.button<{
   &:hover {
     background-color: ${(props) => props.bgcolor};
   }
-  font-family: ${({ theme }) => theme.fonts.small["font-family"]};
-  font-size: ${({ theme }) => theme.fonts.small["font-size"]};
-  font-weight: ${({ theme }) => theme.fonts.small["font-weight"]};
-  line-height: ${({ theme }) => theme.fonts.small["line-height"]};
-  letter-spacing: ${({ theme }) => theme.fonts.small["letter-spacing"]};
+  font-family: ${({ theme }) => theme.fonts.body4["font-family"]};
+  font-size: ${({ theme }) => theme.fonts.body5["font-size"]};
+  font-weight: ${({ theme }) => theme.fonts.body5["font-weight"]};
+  line-height: ${({ theme }) => theme.fonts.body5["line-height"]};
+  letter-spacing: ${({ theme }) => theme.fonts.body5["letter-spacing"]};
 `;

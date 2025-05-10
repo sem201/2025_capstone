@@ -8,6 +8,7 @@ declare module "styled-components" {
       B40: string;
       B30: string;
       B20: string;
+      B15: string;
       B10: string;
       B00: string;
       P60: string;

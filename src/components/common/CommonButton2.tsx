@@ -11,6 +11,7 @@ const Wrapper = styled.button`
   display: inline-flex;
   justify-content: center;
   align-items: center;
+  border-radius: 6px;
 
   width: auto;
   min-width: fit-content;

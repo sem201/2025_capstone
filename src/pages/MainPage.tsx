@@ -7,8 +7,11 @@ import LogPopup from "@components/modal/LogPopup";
 import { LogType } from "../types/types";
 import { useState } from "react";
 import styled from "styled-components";
+import ConfirmPopup from "@components/modal/ConfirmPopup";
 const MainPage = () => {
   const [currentFloor, setCurrentFloor] = useState("전체");
+  const [isLogPopupVisible, setIsLogPopupVisible] = useState(true);
+  const [isConfirmVisible, setIsConfirmVisible] = useState(false);
   const tmp: LogType = {
     emergency: true,
     problem: "널스콜",
@@ -31,9 +34,25 @@ const MainPage = () => {
             setCurrentFloor={setCurrentFloor}
           />
           <MapContainer currentFloor={currentFloor} />
-          <LogPopup temp={tmp} />
+          {isLogPopupVisible && (
+            <LogPopup
+              temp={tmp}
+              onOpenConfirm={() => setIsConfirmVisible(true)}
+              closePopup={() => setIsLogPopupVisible(false)}
+            />
+          )}
         </MainView>
       </Container>
+      {isConfirmVisible && (
+        <>
+          <DarkBackground>
+            <ConfirmPopup
+              temp={tmp}
+              closePopup={() => setIsConfirmVisible(false)}
+            />
+          </DarkBackground>
+        </>
+      )}
     </>
   );
 };
@@ -64,4 +83,13 @@ const MainView = styled.section`
   display: flex;
   flex-direction: column;
   position: relative;
+`;
+
+const DarkBackground = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
 `;

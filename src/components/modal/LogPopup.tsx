@@ -1,18 +1,26 @@
 import styled from "styled-components";
 import * as S from "./modal.styled";
-import close from "@assets/icons/close.svg";
 import RedCheckButton from "@components/common/RedCheckButton";
 import YellowCheckButton from "@components/common/YellowCheckButton";
 import { LogType } from "../../types/types";
+import close from "@assets/icons/closeWhite.svg";
 import emergency from "@assets/icons/emergency.svg";
 import notEmergency from "@assets/icons/notEmergency.svg";
 import CheckLocationButton from "@components/common/CheckLocationButton";
 
-const LogPopup = ({ temp }: { temp: LogType }) => {
+const LogPopup = ({
+  temp,
+  onOpenConfirm,
+  closePopup,
+}: {
+  temp: LogType;
+  onOpenConfirm: () => void;
+  closePopup: () => void;
+}) => {
   return (
     <Wrapper>
       <S.PopupHeader bgcolor="B50">
-        <img src={close} alt="닫기버튼" />
+        <img src={close} alt="닫기버튼" onClick={closePopup} />
       </S.PopupHeader>
       <S.PopupBody>
         <S.PopupTitle>
@@ -25,12 +33,19 @@ const LogPopup = ({ temp }: { temp: LogType }) => {
         </S.PopupTitle>
         <hr style={{ width: "80%", margin: "0 0 0.5em " }} />
         <S.PopupContent>
-          성명 {temp.name} 호실 {temp.locate}
-          <br />
-          발생 시간 {temp.time}
+          <div>
+            <p>성명 {temp.name}</p>
+            <p>호실 {temp.locate}</p>
+          </div>
+          <p>발생 시간 {temp.time}</p>
         </S.PopupContent>
         <CheckLocationButton />
-        {temp.emergency ? <RedCheckButton /> : <YellowCheckButton />}
+        <div style={{ marginBottom: "4px" }}></div>
+        {temp.emergency ? (
+          <RedCheckButton onClick={onOpenConfirm} />
+        ) : (
+          <YellowCheckButton onClick={onOpenConfirm} />
+        )}
       </S.PopupBody>
     </Wrapper>
   );

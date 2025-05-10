@@ -20,6 +20,7 @@ export const theme = {
     B40: "#71717A",
     B30: "#A1A1AA",
     B20: "#D4D4D8",
+    B15: "#EEE",
     B10: "#E4E4E7",
     B00: "#F4F4F5",
 
