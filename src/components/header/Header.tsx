@@ -7,8 +7,8 @@ const Header = () => {
       <div>logo</div>
       <S.LoginInfoContainer>
         <p>로그인정보</p>
-        <p>박세라</p>
-        <p>(casy4112)</p>
+        <p>박성재</p>
+        <p>(**********)</p>
         <p style={{ margin: "0 20px", lineHeight: "40px" }}>|</p>
         <img src={logout} alt="로그아웃 버튼" />
       </S.LoginInfoContainer>
