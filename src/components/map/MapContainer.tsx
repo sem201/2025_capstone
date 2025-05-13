@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
 import Map5 from "@assets/maplayer/map5.svg?component";
-import UserLocation from "@type/types";
 import { useUserStore, UserLocation } from "../../store/userStore";
 
 const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
@@ -13,7 +12,7 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
   const webSocket = useRef<WebSocket | null>(null);
 
   useEffect(() => {
-    webSocket.current = new WebSocket("wss://api.fpfp.o-r.kr/patient/location");
+    webSocket.current = new WebSocket(import.meta.env.VITE_WEBSOCKET_URL);
     webSocket.current.onopen = (e) => {
       console.log("websocket 연결 성공");
     };
