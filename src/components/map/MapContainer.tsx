@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
 import Map5 from "@assets/maplayer/map5.svg?component";
+import UserLocation from "@type/types";
 import { useUserStore, UserLocation } from "../../store/userStore";
 
 const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
@@ -12,7 +13,13 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
   const webSocket = useRef<WebSocket | null>(null);
 
   useEffect(() => {
-    webSocket.current = new WebSocket("ws://");
+    webSocket.current = new WebSocket("wss://api.fpfp.o-r.kr/patient/location");
+    webSocket.current.onopen = (e) => {
+      console.log("websocket 연결 성공");
+    };
+    webSocket.current.onmessage = (e) => {
+      console.log("websocket 메세지 수신", e);
+    };
     const testLocations: UserLocation[] = [
       {
         id: "hall_5103",

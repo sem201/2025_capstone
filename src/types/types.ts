@@ -5,3 +5,10 @@ export interface LogType {
   locate: string;
   time: string;
 }
+
+export interface UserLocation {
+  id: string;
+  room: string;
+  x: number;
+  y: number;
+}
