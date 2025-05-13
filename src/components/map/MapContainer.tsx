@@ -3,16 +3,16 @@ import styled from "styled-components";
 import Map5 from "@assets/maplayer/map5.svg?component";
 import { useUserStore, UserLocation } from "../../store/userStore";
 
-const CELL_SIZE = 27;
-
 const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const userLocations = useUserStore(
     (state: { userLocations: UserLocation[] }) => state.userLocations
   );
   const setUserLocations = useUserStore((state) => state.setUserLocations);
+  const webSocket = useRef<WebSocket | null>(null);
 
   useEffect(() => {
+    webSocket.current = new WebSocket("ws://");
     const testLocations: UserLocation[] = [
       {
         id: "hall_5103",
@@ -26,12 +26,6 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
         x: 1,
         y: 1,
       },
-      // {
-      //   id: "hall_5103",
-      //   type: "hall",
-      //   x: 2,
-      //   y: 2,
-      // },
     ];
     setUserLocations(testLocations);
   }, [setUserLocations]);
