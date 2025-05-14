@@ -2,7 +2,7 @@ import styled from "styled-components";
 import * as S from "./modal.styled";
 import RedCheckButton from "@components/common/RedCheckButton";
 import YellowCheckButton from "@components/common/YellowCheckButton";
-import { LogType } from "../../types/types";
+import { LogType } from "@custom-types/types";
 import close from "@assets/icons/closeWhite.svg";
 import emergency from "@assets/icons/emergency.svg";
 import notEmergency from "@assets/icons/notEmergency.svg";

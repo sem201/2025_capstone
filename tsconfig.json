@@ -7,7 +7,7 @@
       "@layout/*": ["src/layout/*"],
       "@pages/*": ["src/pages/*"],
       "@assets/*": ["src/assets/*"],
-      "@types/*": ["src/types/*"]
+      "@custom-types/*": ["src/types/*"]
     },
     "types": ["node", "vite-plugin-svgr/client"]
   },

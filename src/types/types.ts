@@ -1,3 +1,4 @@
+// @ts-ignore
 export interface LogType {
   emergency: boolean;
   problem: string;
