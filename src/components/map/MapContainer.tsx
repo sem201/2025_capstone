@@ -9,8 +9,16 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
     (state: { userLocations: UserLocation[] }) => state.userLocations
   );
   const setUserLocations = useUserStore((state) => state.setUserLocations);
+  const webSocket = useRef<WebSocket | null>(null);
 
   useEffect(() => {
+    webSocket.current = new WebSocket(import.meta.env.VITE_WEBSOCKET_URL);
+    webSocket.current.onopen = (e) => {
+      console.log("websocket 연결 성공");
+    };
+    webSocket.current.onmessage = (e) => {
+      console.log("websocket 메세지 수신", e);
+    };
     const testLocations: UserLocation[] = [
       {
         id: "hall_5103",
@@ -24,12 +32,6 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
         x: 1,
         y: 1,
       },
-      // {
-      //   id: "hall_5103",
-      //   type: "hall",
-      //   x: 2,
-      //   y: 2,
-      // },
     ];
     setUserLocations(testLocations);
   }, [setUserLocations]);
