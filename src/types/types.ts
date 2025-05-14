@@ -6,3 +6,5 @@ export interface LogType {
   locate: string;
   time: string;
 }
+
+export interface UserType {}

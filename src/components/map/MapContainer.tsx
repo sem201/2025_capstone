@@ -3,8 +3,6 @@ import styled from "styled-components";
 import Map5 from "@assets/maplayer/map5.svg?component";
 import { useUserStore, UserLocation } from "../../store/userStore";
 
-const CELL_SIZE = 27;
-
 const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const userLocations = useUserStore(
