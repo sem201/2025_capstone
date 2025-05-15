@@ -5,7 +5,7 @@ import YellowCheckButton from "@components/common/YellowCheckButton";
 import { LogType } from "@custom-types/types";
 import close from "@assets/icons/closeWhite.svg";
 import emergency from "@assets/icons/emergency.svg";
-import notEmergency from "@assets/icons/notEmergency.svg";
+import notEmergency from "@assets/icons/notemergency.svg";
 import CheckLocationButton from "@components/common/CheckLocationButton";
 
 const LogPopup = ({
