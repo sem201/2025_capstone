@@ -44,6 +44,10 @@ export const TableRow = styled.tr`
 
 export const Pagenation = styled.div`
   display: flex;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translate(-50%, 0);
   justify-content: center;
   gap: 8px;
   margin-top: 20px;

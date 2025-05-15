@@ -92,6 +92,7 @@ export default EmergencyLogFrame;
 const Wrapper = styled.section`
   box-sizing: border-box;
   padding: 20px;
+  position: relative;
 
   border-bottom: 1px solid ${({ theme }) => theme.colors.B10};
 `;

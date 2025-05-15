@@ -9,6 +9,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import ConfirmPopup from "@components/modal/ConfirmPopup";
 import EmergencyLogFrame from "@components/logFrame/EmergencyLogFrame";
+import LogFrameDetailEme from "@components/modal/LogFrameDetailEme";
 const MainPage = () => {
   const [currentFloor, setCurrentFloor] = useState("전체");
   const [isLogPopupVisible, setIsLogPopupVisible] = useState(true);
@@ -44,6 +45,7 @@ const MainPage = () => {
           )}
         </MainView>
       </Container>
+      <LogFrameDetailEme></LogFrameDetailEme>
       {isConfirmVisible && (
         <>
           <DarkBackground>

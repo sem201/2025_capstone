@@ -3,6 +3,7 @@ import search from "@assets/icons/Search.svg";
 import emergency from "@assets/icons/emergency.svg";
 import notNormal from "@assets/icons/notemergency.svg";
 import normal from "@assets/icons/normal.svg";
+import send from "@assets/icons/Send.svg";
 
 import * as S from "./customList.style";
 import { Table, TableRow } from "@components/logFrame/logFrame.styled";
@@ -33,7 +34,7 @@ const customList = () => {
             <td>홍길동</td>
             <td>102호</td>
             <td>
-              <CheckLocationButton />
+              <CheckLocationButton text="위치확인" img={send} />
             </td>
           </tr>
           <tr>
@@ -43,7 +44,7 @@ const customList = () => {
             <td>홍길동</td>
             <td>102호</td>
             <td>
-              <CheckLocationButton />
+              <CheckLocationButton text="위치확인" img={send} />
             </td>
           </tr>
 
@@ -54,7 +55,7 @@ const customList = () => {
             <td>홍길동</td>
             <td>102호</td>
             <td>
-              <CheckLocationButton />
+              <CheckLocationButton text="위치확인" img={send} />
             </td>
           </tr>
 
@@ -65,7 +66,7 @@ const customList = () => {
             <td>홍길동</td>
             <td>102호</td>
             <td>
-              <CheckLocationButton />
+              <CheckLocationButton text="위치확인" img={send} />
             </td>
           </tr>
           <tr>
@@ -75,7 +76,7 @@ const customList = () => {
             <td>홍길동</td>
             <td>102호</td>
             <td>
-              <CheckLocationButton />
+              <CheckLocationButton text="위치확인" img={send} />
             </td>
           </tr>
         </tbody>
