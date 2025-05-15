@@ -1,5 +1,5 @@
 import { ButtonWrapper } from "./common.styled";
-import send from "@assets/icons/send.svg";
+import send from "@assets/icons/Send.svg";
 
 const CheckLocationButton = () => {
   return (
