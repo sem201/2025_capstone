@@ -15,7 +15,7 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
 
   useEffect(() => {
     webSocket.current = new WebSocket(
-      `${import.meta.env.VITE_WEBSOCKET_URL}patient/location`
+      `${import.meta.env.VITE_SOCKET_URL}patient/location`
     );
     webSocket.current.onopen = () => {
       console.log("websocket 연결 성공");
@@ -33,7 +33,6 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
       setUserLocations(userLocations);
     };
   }, [setUserLocations]);
-
   useEffect(() => {
     if (!svgRef.current) return;
 
@@ -83,12 +82,12 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
       {currentFloor === "전체" ? (
         <FullView>
           <FloorSection>
-            <StyledMap5 ref={svgRef} viewBox="0 0 703 921" />
+            <StyledMap5 ref={svgRef} />
             <FloorLabel>5층</FloorLabel>
           </FloorSection>
           <Divider />
           <FloorSection>
-            <StyledMap6 ref={svgRef} viewBox="0 0 703 921" />
+            <StyledMap6 ref={svgRef} />
             <FloorLabel>6층</FloorLabel>
           </FloorSection>
         </FullView>
@@ -97,7 +96,7 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
           {currentFloor == "5" ? (
             <StyledMap5 ref={svgRef} />
           ) : (
-            <StyledMap6 ref={svgRef} viewBox="0 0 703 921" />
+            <StyledMap6 ref={svgRef} />
           )}
           <FloorLabel>{currentFloor}층</FloorLabel>
         </SingleView>
