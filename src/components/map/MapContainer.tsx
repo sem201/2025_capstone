@@ -1,7 +1,9 @@
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
-import Map5 from "@assets/maplayer/map5.svg?component";
-import { useUserStore, UserLocation } from "../../store/userStore";
+import Map5 from "@assets/maplayer/map_group_5.svg?component";
+import Map6 from "@assets/maplayer/map_group_6.svg?component";
+import { UserLocation } from "@custom-types/types";
+import { useUserStore } from "../../store/userStore";
 
 const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -12,28 +14,24 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
   const webSocket = useRef<WebSocket | null>(null);
 
   useEffect(() => {
-    webSocket.current = new WebSocket(import.meta.env.VITE_WEBSOCKET_URL);
-    webSocket.current.onopen = (e) => {
+    webSocket.current = new WebSocket(
+      `${import.meta.env.VITE_WEBSOCKET_URL}patient/location`
+    );
+    webSocket.current.onopen = () => {
       console.log("websocket 연결 성공");
     };
     webSocket.current.onmessage = (e) => {
-      console.log("websocket 메세지 수신", e);
+      const data = JSON.parse(e.data);
+      console.log(data);
+      const userLocations: UserLocation[] = data.map((item: UserLocation) => [
+        {
+          id: item.id,
+          x: item.x,
+          y: item.y,
+        },
+      ]);
+      setUserLocations(userLocations);
     };
-    const testLocations: UserLocation[] = [
-      {
-        id: "hall_5103",
-        type: "hall",
-        x: 5,
-        y: 1,
-      },
-      {
-        id: "hall_5103",
-        type: "hall",
-        x: 1,
-        y: 1,
-      },
-    ];
-    setUserLocations(testLocations);
   }, [setUserLocations]);
 
   useEffect(() => {
@@ -85,18 +83,22 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
       {currentFloor === "전체" ? (
         <FullView>
           <FloorSection>
-            <StyledMap ref={svgRef} viewBox="0 0 703 921" />
+            <StyledMap5 ref={svgRef} viewBox="0 0 703 921" />
             <FloorLabel>5층</FloorLabel>
           </FloorSection>
           <Divider />
           <FloorSection>
-            <StyledMap ref={svgRef} viewBox="0 0 703 921" />
+            <StyledMap6 ref={svgRef} viewBox="0 0 703 921" />
             <FloorLabel>6층</FloorLabel>
           </FloorSection>
         </FullView>
       ) : (
         <SingleView>
-          <StyledMap ref={svgRef} viewBox="0 0 703 921" />
+          {currentFloor == "5" ? (
+            <StyledMap5 ref={svgRef} />
+          ) : (
+            <StyledMap6 ref={svgRef} viewBox="0 0 703 921" />
+          )}
           <FloorLabel>{currentFloor}층</FloorLabel>
         </SingleView>
       )}
@@ -149,7 +151,14 @@ const Divider = styled.div`
   margin: 0 20px;
 `;
 
-const StyledMap = styled(Map5)`
+const StyledMap5 = styled(Map5)`
+  width: 70%;
+  height: 70%;
+  max-width: 703px;
+  object-fit: contain;
+`;
+
+const StyledMap6 = styled(Map6)`
   width: 70%;
   height: 70%;
   max-width: 703px;
