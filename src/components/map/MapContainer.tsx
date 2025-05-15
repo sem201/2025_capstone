@@ -6,7 +6,6 @@ import { UserLocation } from "@custom-types/types";
 import { useUserStore } from "../../store/userStore";
 
 const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
-  console.log("환경변수", import.meta.env.VITE_SOCKET_URL);
   const svgRef = useRef<SVGSVGElement>(null);
   const userLocations = useUserStore(
     (state: { userLocations: UserLocation[] }) => state.userLocations
