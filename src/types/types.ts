@@ -7,4 +7,9 @@ export interface LogType {
   time: string;
 }
 
-export interface UserType {}
+export interface UserLocation {
+  id: string;
+  // room: string;
+  x: number;
+  y: number;
+}

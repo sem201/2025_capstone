@@ -23,11 +23,11 @@ export default defineConfig({
       "@custom-types": path.resolve(__dirname, "src/types"),
     },
   },
-  server: {
-    https: {
-      key: fs.readFileSync(path.resolve(__dirname, "localhost-key.pem")),
-      cert: fs.readFileSync(path.resolve(__dirname, "localhost.pem")),
-    },
-    port: 5173,
-  },
+  // server: {
+  //   https: {
+  //     key: fs.readFileSync(path.resolve(__dirname, "localhost-key.pem")),
+  //     cert: fs.readFileSync(path.resolve(__dirname, "localhost.pem")),
+  //   },
+  //   port: 5173,
+  // },
 });

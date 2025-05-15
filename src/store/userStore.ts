@@ -1,14 +1,5 @@
 import { create } from "zustand";
-
-export type LocationType = "hall" | "room";
-
-export interface UserLocation {
-  id: string;
-  type: LocationType;
-  roomNumber?: string;
-  x: number;
-  y: number;
-}
+import { UserLocation } from "@custom-types/types";
 
 interface UserStore {
   userLocations: UserLocation[];
