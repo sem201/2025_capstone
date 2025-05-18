@@ -14,6 +14,7 @@ const MainPage = () => {
   const [currentFloor, setCurrentFloor] = useState("전체");
   const [isLogPopupVisible, setIsLogPopupVisible] = useState(true);
   const [isConfirmVisible, setIsConfirmVisible] = useState(false);
+  const [isLogFrameDetailEme, setIsLogFrameDetailEme] = useState(false);
   const tmp: LogType = {
     emergency: true,
     problem: "널스콜",
@@ -26,7 +27,10 @@ const MainPage = () => {
       <Header />
       <Container>
         <SideBar>
-          <EmergencyLogFrame openPopup={() => setIsLogPopupVisible(true)} />
+          <EmergencyLogFrame
+            openPopup={() => setIsLogPopupVisible(true)}
+            openDetail={() => setIsLogFrameDetailEme(true)}
+          />
           <LogFrame openPopup={() => setIsLogPopupVisible(true)} />
           <CustomList />
         </SideBar>
@@ -45,7 +49,9 @@ const MainPage = () => {
           )}
         </MainView>
       </Container>
-      <LogFrameDetailEme></LogFrameDetailEme>
+      {isLogFrameDetailEme && (
+        <LogFrameDetailEme closeDetail={() => setIsLogFrameDetailEme(false)} />
+      )}
       {isConfirmVisible && (
         <>
           <DarkBackground>
