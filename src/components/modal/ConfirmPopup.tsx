@@ -3,7 +3,7 @@ import styled from "styled-components";
 import * as S from "./modal.styled";
 import close from "@assets/icons/closeBlack.svg";
 import emergency from "@assets/icons/emergency.svg";
-import notEmergency from "@assets/icons/notEmergency.svg";
+import notEmergency from "@assets/icons/notemergency.svg";
 import CommonButton2 from "@components/common/CommonButton2";
 
 const ConfirmPopup = ({

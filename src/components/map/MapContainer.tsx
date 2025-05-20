@@ -16,7 +16,7 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
 
   useEffect(() => {
     webSocket.current = new WebSocket(
-      `${import.meta.env.VITE_WEBSOCKET_URL}patient/location`
+      `${import.meta.env.VITE_SOCKET_URL}patient/location`
     );
     webSocket.current.onopen = () => {
       console.log("websocket 연결 성공");
@@ -34,7 +34,6 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
       setUserLocations(userLocations);
     };
   }, [setUserLocations]);
-
   useEffect(() => {
     if (!svgRef5.current) return;
 

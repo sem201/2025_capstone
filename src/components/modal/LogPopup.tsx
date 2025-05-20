@@ -5,8 +5,9 @@ import YellowCheckButton from "@components/common/YellowCheckButton";
 import { LogType } from "@custom-types/types";
 import close from "@assets/icons/closeWhite.svg";
 import emergency from "@assets/icons/emergency.svg";
-import notEmergency from "@assets/icons/notEmergency.svg";
+import notEmergency from "@assets/icons/notemergency.svg";
 import CheckLocationButton from "@components/common/CheckLocationButton";
+import send from "@assets/icons/Send.svg";
 
 const LogPopup = ({
   temp,
@@ -39,7 +40,7 @@ const LogPopup = ({
           </div>
           <p>발생 시간 {temp.time}</p>
         </S.PopupContent>
-        <CheckLocationButton />
+        <CheckLocationButton text="위치확인" img={send} />
         <div style={{ marginBottom: "4px" }}></div>
         {temp.emergency ? (
           <RedCheckButton onClick={onOpenConfirm} />

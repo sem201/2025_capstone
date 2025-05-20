@@ -1,11 +1,10 @@
 import { ButtonWrapper } from "./common.styled";
-import send from "@assets/icons/send.svg";
 
-const CheckLocationButton = () => {
+const CheckLocationButton = ({ text, img }: { text: string; img: string }) => {
   return (
     <ButtonWrapper color="#52525B" bordercolor="#D4D4D8" bgcolor="#fffff">
-      위치확인
-      <img src={send} alt="위치확인" />
+      {text}
+      <img src={img} alt="위치확인" />
     </ButtonWrapper>
   );
 };

@@ -14,6 +14,8 @@ export const PopupHeader = styled.div<{
   align-items: center;
 
   border-radius: 7.2px 7.2px 0 0;
+
+  cursor: pointer;
 `;
 
 export const PopupBody = styled.div`
@@ -95,4 +97,102 @@ export const ConfirmPopupBody = styled.div`
     line-height: ${({ theme }) => theme.fonts.body5["line-height"]};
     letter-spacing: ${({ theme }) => theme.fonts.body5["letter-spacing"]};
   }
+`;
+
+export const DetailPopupBody = styled.div`
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  height: calc(100% - 30px);
+
+  #log-table {
+    grid-column: 1/2;
+    padding: 17px;
+    position: relative;
+
+    border-right: 1px solid ${({ theme }) => theme.colors.B10};
+  }
+`;
+
+export const UserContent = styled.div`
+  grid-column: 2/3;
+  border-left: 1px solid ${({ theme }) => theme.colors.B10};
+
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: 2.2fr 0.2fr 1fr;
+  height: 100%;
+
+  > div {
+    display: flex;
+    box-sizing: border-box;
+    padding: 9px 16px;
+  }
+
+  #user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+  }
+  #error {
+    background-color: ${({ theme }) => theme.colors.D10};
+    color: ${({ theme }) => theme.colors.Black};
+    font-family: ${({ theme }) => theme.fonts.small["font-family"]};
+    font-size: 14px;
+    font-weight: ${({ theme }) => theme.fonts.small["font-weight"]};
+    line-height: ${({ theme }) => theme.fonts.small["line-height"]};
+    letter-spacing: ${({ theme }) => theme.fonts.small["letter-spacing"]};
+  }
+  #input {
+    display: flex;
+    flex-direction: column;
+    background-color: ${({ theme }) => theme.colors.B00};
+
+    textarea {
+      width: 100% !important;
+      /* height: ; */
+      resize: none;
+      padding: 0 4px;
+
+      font-family: ${({ theme }) => theme.fonts.small["font-family"]};
+      font-size: 12px;
+      font-weight: ${({ theme }) => theme.fonts.small["font-weight"]};
+      line-height: ${({ theme }) => theme.fonts.small["line-height"]};
+      letter-spacing: ${({ theme }) => theme.fonts.small["letter-spacing"]};
+    }
+  }
+`;
+
+export const InputContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  P {
+    margin: 0;
+    color: ${({ theme }) => theme.colors.B40};
+    font-family: ${({ theme }) => theme.fonts.small["font-family"]};
+    font-size: 12px;
+    font-weight: ${({ theme }) => theme.fonts.small["font-weight"]};
+    line-height: ${({ theme }) => theme.fonts.small["line-height"]};
+    letter-spacing: ${({ theme }) => theme.fonts.small["letter-spacing"]};
+  }
+  button {
+    width: fit-content;
+    height: 50%;
+    background-color: ${({ theme }) => theme.colors.B50};
+    border-radius: 4px;
+    color: ${({ theme }) => theme.colors.WHITE};
+
+    cursor: pointer;
+  }
+`;
+
+export const NameContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
 `;
