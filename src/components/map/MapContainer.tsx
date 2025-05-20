@@ -35,7 +35,6 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
     };
   }, [setUserLocations]);
   useEffect(() => {
-    console.log(userLocations);
     if (!svgRef5.current) return;
 
     const existingDots = svgRef5.current.querySelectorAll(".location-dot");
@@ -43,20 +42,32 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
 
     userLocations.forEach((location) => {
       const group = svgRef5.current?.querySelector(`#${location.place}`);
-
       if (group) {
         const targetRect = group.querySelector(
           `[id="${location.x}-${location.y}"]`
         );
+
         if (targetRect) {
           const x = Number(targetRect.getAttribute("x") ?? "0");
           const y = Number(targetRect.getAttribute("y") ?? "0");
           const width = Number(targetRect.getAttribute("width") ?? "0");
           const height = Number(targetRect.getAttribute("height") ?? "0");
-
+          const transformValue = targetRect.getAttribute("transform");
           let centerX, centerY;
-          centerX = x + width / 2;
-          centerY = y - height / 2;
+
+          if (!transformValue) {
+            centerX = x + width / 2;
+            centerY = y + height / 2;
+          } else if (transformValue.startsWith("rotate(90")) {
+            centerX = x - width / 2;
+            centerY = y + height / 2;
+          } else if (transformValue.startsWith("rotate(-90")) {
+            centerX = x + width / 2;
+            centerY = y - height / 2;
+          } else {
+            centerX = x - width / 2;
+            centerY = y - height / 2;
+          }
 
           const dot = document.createElementNS(
             "http://www.w3.org/2000/svg",
