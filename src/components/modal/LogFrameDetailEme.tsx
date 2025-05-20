@@ -15,7 +15,7 @@ import React from "react";
 import RedCheckButton from "@components/common/RedCheckButton";
 
 const LogFrameDetailEme = ({ closeDetail }: { closeDetail: () => void }) => {
-  const [choosedUser, setChoosedUser] = React.useState<number | null>(null);
+  const [choosedUser, _setChoosedUser] = React.useState<number | null>(null);
   const [currentPage, setCurrentPage] = React.useState(1);
   const totalPages = 5;
   const handlePageChage = (page: number) => {
