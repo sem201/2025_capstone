@@ -6,7 +6,13 @@ import * as S from "./logFrame.styled";
 import RedCheckButton from "@components/common/RedCheckButton";
 
 const EmergencyLogFrame = React.memo(
-  ({ openPopup }: { openPopup: () => void }) => {
+  ({
+    openPopup,
+    openDetail,
+  }: {
+    openPopup: () => void;
+    openDetail: () => void;
+  }) => {
     // 층수 변경시 얘도 리렌더링 되는 것을 막음.
     const [currentPage, setCurrentPage] = React.useState(1);
     const totalPages = 5;
@@ -21,6 +27,7 @@ const EmergencyLogFrame = React.memo(
           낙상감지 내역
           <button
             style={{ background: "none", border: "none", cursor: "pointer" }}
+            onClick={openDetail}
           >
             <img src={Right} alt="낙상 감지내역 상세보기" />
           </button>

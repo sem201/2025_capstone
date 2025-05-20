@@ -9,7 +9,9 @@ export interface LogType {
 
 export interface UserLocation {
   id: string;
-  // room: string;
+  name: string;
+  place: string;
+  ssid: string;
   x: number;
   y: number;
 }

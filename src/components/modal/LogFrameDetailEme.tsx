@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import * as S from "./modal.styled";
 import { PopupHeader } from "./modal.styled";
 import close from "@assets/icons/closeWhite.svg";
 import emergency from "@assets/icons/emergency.svg";
@@ -9,10 +10,11 @@ import {
 } from "@components/logFrame/logFrame.styled";
 import CheckLocationButton from "@components/common/CheckLocationButton";
 import warning from "@assets/icons/Danger.svg";
+import send from "@assets/icons/Send.svg";
 import React from "react";
 import RedCheckButton from "@components/common/RedCheckButton";
 
-const LogFrameDetailEme = () => {
+const LogFrameDetailEme = ({ closeDetail }: { closeDetail: () => void }) => {
   const [choosedUser, setChoosedUser] = React.useState<number | null>(null);
   const [currentPage, setCurrentPage] = React.useState(1);
   const totalPages = 5;
@@ -24,10 +26,10 @@ const LogFrameDetailEme = () => {
   return (
     <Wrapper>
       <PopupHeader bgcolor="B50">
-        <img src={close} alt="닫기버튼" onClick={() => {}} />
+        <img src={close} alt="닫기버튼" onClick={closeDetail} />
       </PopupHeader>
-      <PopupBody>
-        <div>
+      <S.DetailPopupBody>
+        <div id="log-table">
           <Table>
             <thead>
               <TableRow>
@@ -83,14 +85,36 @@ const LogFrameDetailEme = () => {
             </button>
           </Pagenation>
         </div>
-        <div>
-          {choosedUser !== null ? (
-            <div>무언가 있음 ㅇㅇ;</div>
+        <S.UserContent>
+          {choosedUser == null ? (
+            <>
+              <div id="user-info">
+                <S.NameContainer>
+                  <div>
+                    <img src={emergency} alt="" />
+                    김영호
+                  </div>
+                  <CheckLocationButton text="위치확인" img={send} />
+                </S.NameContainer>
+                <div></div>
+              </div>
+              <div id="error">
+                <img src={emergency} alt="응급 아이콘" />
+                낙상감지 24.02.26 14:59:57
+              </div>
+              <div id="input">
+                <S.InputContainer>
+                  <p>처리사유</p>
+                  <button>제출하기</button>
+                </S.InputContainer>
+                <textarea />
+              </div>
+            </>
           ) : (
             <div> 열람할 내역을 선택해주세요</div>
           )}
-        </div>
-      </PopupBody>
+        </S.UserContent>
+      </S.DetailPopupBody>
     </Wrapper>
   );
 };
@@ -109,23 +133,4 @@ const Wrapper = styled.section`
   border-radius: 0 0 7.2px 7.2px;
 
   box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.25);
-`;
-
-const PopupBody = styled.div`
-  box-sizing: border-box;
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  height: calc(100% - 30px);
-
-  div:nth-child(1) {
-    grid-column: 1/2;
-    padding: 17px;
-    position: relative;
-
-    border-right: 1px solid ${({ theme }) => theme.colors.B10};
-  }
-  div:nth-child(2) {
-    grid-column: 2/3;
-    border-left: 1px solid ${({ theme }) => theme.colors.B10};
-  }
 `;
