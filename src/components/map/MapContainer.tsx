@@ -35,6 +35,7 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
     };
   }, [setUserLocations]);
   useEffect(() => {
+    console.log(userLocations);
     if (!svgRef5.current) return;
 
     const existingDots = svgRef5.current.querySelectorAll(".location-dot");
@@ -42,12 +43,11 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
 
     userLocations.forEach((location) => {
       const group = svgRef5.current?.querySelector(`#${location.place}`);
-      console.log(group);
+
       if (group) {
         const targetRect = group.querySelector(
           `[id="${location.x}-${location.y}"]`
         );
-        console.log(targetRect);
         if (targetRect) {
           const x = Number(targetRect.getAttribute("x") ?? "0");
           const y = Number(targetRect.getAttribute("y") ?? "0");
@@ -82,12 +82,12 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
       {currentFloor === "전체" ? (
         <FullView>
           <FloorSection>
-            <StyledMap5 ref={svgRef5} viewBox="0 0 703 921" />
+            <StyledMap5 ref={svgRef5} viewBox="0 0 783 921" />
             <FloorLabel>5층</FloorLabel>
           </FloorSection>
           <Divider />
           <FloorSection>
-            <StyledMap6 ref={svgRef6} viewBox="0 0 703 921" />
+            <StyledMap6 ref={svgRef6} viewBox="0 0 891 577" />
             <FloorLabel>6층</FloorLabel>
           </FloorSection>
         </FullView>
@@ -96,7 +96,7 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
           {currentFloor == "5" ? (
             <StyledMap5 ref={svgRef5} />
           ) : (
-            <StyledMap6 ref={svgRef6} viewBox="0 0 703 921" />
+            <StyledMap6 ref={svgRef6} viewBox="0 0 891 577" />
           )}
           <FloorLabel>{currentFloor}층</FloorLabel>
         </SingleView>
