@@ -6,7 +6,8 @@ import { UserLocation } from "@custom-types/types";
 import { useUserStore } from "../../store/userStore";
 
 const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
-  const svgRef = useRef<SVGSVGElement>(null);
+  const svgRef5 = useRef<SVGSVGElement>(null);
+  const svgRef6 = useRef<SVGSVGElement>(null);
   const userLocations = useUserStore(
     (state: { userLocations: UserLocation[] }) => state.userLocations
   );
@@ -22,45 +23,41 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
     };
     webSocket.current.onmessage = (e) => {
       const data = JSON.parse(e.data);
-      console.log(data);
-      const userLocations: UserLocation[] = data.map((item: UserLocation) => [
-        {
-          id: item.id,
-          x: item.x,
-          y: item.y,
-        },
-      ]);
+      const userLocations: UserLocation[] = data.map((item: UserLocation) => ({
+        id: item.id,
+        name: item.name,
+        place: item.place,
+        ssid: item.ssid,
+        x: item.x,
+        y: item.y,
+      }));
       setUserLocations(userLocations);
     };
   }, [setUserLocations]);
 
   useEffect(() => {
-    if (!svgRef.current) return;
+    if (!svgRef5.current) return;
 
-    const existingDots = svgRef.current.querySelectorAll(".location-dot");
+    const existingDots = svgRef5.current.querySelectorAll(".location-dot");
     existingDots.forEach((dot) => dot.remove());
 
     userLocations.forEach((location) => {
-      const group = svgRef.current?.querySelector(`#${location.id}`);
+      const group = svgRef5.current?.querySelector(`#${location.place}`);
+      console.log(group);
       if (group) {
         const targetRect = group.querySelector(
           `[id="${location.x}-${location.y}"]`
         );
+        console.log(targetRect);
         if (targetRect) {
           const x = Number(targetRect.getAttribute("x") ?? "0");
           const y = Number(targetRect.getAttribute("y") ?? "0");
           const width = Number(targetRect.getAttribute("width") ?? "0");
           const height = Number(targetRect.getAttribute("height") ?? "0");
-          const transform = targetRect.getAttribute("transform");
 
           let centerX, centerY;
-          if (transform) {
-            centerX = x - width / 2;
-            centerY = y + height / 2;
-          } else {
-            centerX = x + width / 2;
-            centerY = y + height / 2;
-          }
+          centerX = x + width / 2;
+          centerY = y - height / 2;
 
           const dot = document.createElementNS(
             "http://www.w3.org/2000/svg",
@@ -69,10 +66,13 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
           dot.setAttribute("cx", centerX.toString());
           dot.setAttribute("cy", centerY.toString());
           dot.setAttribute("r", "10");
-          dot.setAttribute("fill", "gray");
+          dot.setAttribute("fill", "blue");
+          dot.setAttribute("border", "1px");
           dot.classList.add("location-dot");
+          dot.setAttribute("stroke", "white");
+          dot.setAttribute("stroke-width", "2");
 
-          svgRef.current?.appendChild(dot);
+          svgRef5.current?.appendChild(dot);
         }
       }
     });
@@ -83,21 +83,21 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
       {currentFloor === "전체" ? (
         <FullView>
           <FloorSection>
-            <StyledMap5 ref={svgRef} viewBox="0 0 703 921" />
+            <StyledMap5 ref={svgRef5} viewBox="0 0 703 921" />
             <FloorLabel>5층</FloorLabel>
           </FloorSection>
           <Divider />
           <FloorSection>
-            <StyledMap6 ref={svgRef} viewBox="0 0 703 921" />
+            <StyledMap6 ref={svgRef6} viewBox="0 0 703 921" />
             <FloorLabel>6층</FloorLabel>
           </FloorSection>
         </FullView>
       ) : (
         <SingleView>
           {currentFloor == "5" ? (
-            <StyledMap5 ref={svgRef} />
+            <StyledMap5 ref={svgRef5} />
           ) : (
-            <StyledMap6 ref={svgRef} viewBox="0 0 703 921" />
+            <StyledMap6 ref={svgRef6} viewBox="0 0 703 921" />
           )}
           <FloorLabel>{currentFloor}층</FloorLabel>
         </SingleView>
