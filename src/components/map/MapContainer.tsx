@@ -33,7 +33,7 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
       }));
       setUserLocations(userLocations);
     };
-  }, [setUserLocations]);
+  });
   useEffect(() => {
     if (!svgRef5.current) return;
 
