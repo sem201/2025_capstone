@@ -41,6 +41,7 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
     existingDots.forEach((dot) => dot.remove());
 
     userLocations.forEach((location) => {
+      console.log(location);
       const group = svgRef5.current?.querySelector(`#${location.place}`);
       if (group) {
         const targetRect = group.querySelector(
@@ -82,7 +83,19 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
           dot.setAttribute("stroke", "white");
           dot.setAttribute("stroke-width", "2");
 
+          const nameText = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "text"
+          );
+          nameText.setAttribute("x", centerX.toString());
+          nameText.setAttribute("y", (centerY + 20).toString());
+          nameText.setAttribute("fill", "black");
+          nameText.setAttribute("font-size", "12");
+          nameText.setAttribute("text-anchor", "middle");
+          nameText.textContent = location.name;
+
           svgRef5.current?.appendChild(dot);
+          svgRef5.current?.appendChild(nameText);
         }
       }
     });
