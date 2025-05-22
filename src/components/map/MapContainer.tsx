@@ -83,10 +83,6 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
           dot.setAttribute("stroke", "white");
           dot.setAttribute("stroke-width", "2");
 
-          const text = document.createElementNS(
-            "http://www.w3.org/2000/svg",
-            "text"
-          );
           const nameText = document.createElementNS(
             "http://www.w3.org/2000/svg",
             "text"
