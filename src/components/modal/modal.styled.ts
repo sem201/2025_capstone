@@ -169,6 +169,8 @@ export const InputContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.5rem;
   P {
     margin: 0;
     color: ${({ theme }) => theme.colors.B40};
@@ -180,7 +182,7 @@ export const InputContainer = styled.div`
   }
   button {
     width: fit-content;
-    height: 50%;
+    /* height: 50%; */
     background-color: ${({ theme }) => theme.colors.B50};
     border-radius: 4px;
     color: ${({ theme }) => theme.colors.WHITE};
@@ -196,3 +198,5 @@ export const NameContainer = styled.div`
   align-items: center;
   gap: 12px;
 `;
+
+// export const

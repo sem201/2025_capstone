@@ -91,7 +91,7 @@ const LogFrameDetailEme = ({ closeDetail }: { closeDetail: () => void }) => {
               <div id="user-info">
                 <S.NameContainer>
                   <div>
-                    <img src={emergency} alt="" />
+                    <img src={emergency} alt="응급" />
                     김영호
                   </div>
                   <CheckLocationButton text="위치확인" img={send} />

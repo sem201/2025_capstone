@@ -14,4 +14,5 @@ export interface UserLocation {
   ssid: string;
   x: number;
   y: number;
+  type: "active" | "delete";
 }
