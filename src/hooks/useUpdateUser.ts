@@ -4,7 +4,8 @@ import { getCenterXY } from "./getCenterXY";
 
 export function useUpdateUser(
   userLocations: UserLocation[],
-  svgRef: React.RefObject<SVGSVGElement | null>
+  svgRef: React.RefObject<SVGSVGElement | null>,
+  currentFloor: string
 ) {
   useEffect(() => {
     if (!svgRef.current) return;
@@ -53,5 +54,5 @@ export function useUpdateUser(
       svgRef.current?.appendChild(nameText);
     });
     console.log("현재 위치", userLocations);
-  }, [userLocations, svgRef]);
+  }, [userLocations, svgRef, currentFloor]);
 }

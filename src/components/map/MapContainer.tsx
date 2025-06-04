@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import * as S from "./map.styled";
 import { UserLocation } from "@custom-types/types";
-// import { useUserStore } from "../../store/userStore";
 import { useUpdateUser } from "@hooks/useUpdateUser";
 import { useWebSocket } from "@hooks/useWebSocket";
 
@@ -13,8 +12,8 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
   // 웹 소켓 호출 훅
   useWebSocket({ setUserLocations });
   // 5층 6층 각각 user위치 정보 업데이트 훅
-  useUpdateUser(userLocations, svgRef5);
-  useUpdateUser(userLocations, svgRef6);
+  useUpdateUser(userLocations, svgRef5, currentFloor);
+  useUpdateUser(userLocations, svgRef6, currentFloor);
   return (
     <S.Wrapper>
       {currentFloor === "전체" ? (
