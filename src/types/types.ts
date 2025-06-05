@@ -16,3 +16,9 @@ export interface UserLocation {
   y: number;
   type: "active" | "delete";
 }
+
+export interface LogData {
+  name: string;
+  time: string;
+  reason?: string;
+}

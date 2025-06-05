@@ -29,6 +29,7 @@
       "@pages/*": ["src/pages/*"],
       "@assets/*": ["src/assets/*"],
       "@styles/*": ["src/styles/*"],
+      "@api/*": ["src/api/*"],
       "@custom-types/*": ["src/types/*"]
     }
   },

@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Right from "@assets/icons/Right.svg";
 import emergency from "@assets/icons/emergency.svg";
 import * as S from "./logFrame.styled";
 import RedCheckButton from "@components/common/RedCheckButton";
+import { ApiInstance } from "@api/ApiInstance";
+import { LogData } from "@custom-types/types";
 
 const EmergencyLogFrame = React.memo(
   ({
@@ -13,14 +15,43 @@ const EmergencyLogFrame = React.memo(
     openPopup: () => void;
     openDetail: () => void;
   }) => {
-    // 층수 변경시 얘도 리렌더링 되는 것을 막음.
     const [currentPage, setCurrentPage] = React.useState(1);
     const totalPages = 5;
+    const [date, setDate] = useState<string | null>(null);
+    const [data, setData] = useState<LogData[] | null>(null);
     const handlePageChage = (page: number) => {
       if (page > 0 && page <= totalPages) {
         setCurrentPage(page);
       }
     };
+    useEffect(() => {
+      // 날짜가 null인 경우 현재 날짜를 ISO 형식으로 설정
+      if (date === null) {
+        const ex = new Date();
+        const isoString = ex.toISOString();
+        const formattedDate =
+          isoString.replace("Z", "") + Math.random().toString().slice(2, 8);
+        setDate(formattedDate);
+        console.log(formattedDate);
+      }
+    }, [date]);
+
+    useEffect(() => {
+      const fetchData = async () => {
+        if (date) {
+          try {
+            const response = await ApiInstance.get("api/emergency", {
+              params: { date: date },
+            });
+            setData(response.data);
+            console.log(response);
+          } catch (e) {
+            console.log(e);
+          }
+        }
+      };
+      fetchData();
+    }, [date]);
     return (
       <Wrapper>
         <S.LogoTitleHeader>
@@ -42,28 +73,28 @@ const EmergencyLogFrame = React.memo(
             </S.TableRow>
           </thead>
           <tbody>
-            <tr>
-              <td>김철수</td>
-              <td>24.02.28 14:59:57</td>
-              <td>
-                <img src={emergency} alt="응급" />
-                낙상감지
-              </td>
-              <td style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-                확인 전 <RedCheckButton onClick={openPopup} />
-              </td>
-            </tr>
-            <tr>
-              <td>김철수</td>
-              <td>24.02.28 14:59:57</td>
-              <td>
-                <img src={emergency} alt="응급" />
-                낙상감지
-              </td>
-              <td style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-                확인 전 <RedCheckButton onClick={openPopup} />
-              </td>
-            </tr>
+            {data &&
+              data.map((item, idx) => {
+                return (
+                  <tr key={idx}>
+                    <td>{item.name}</td>
+                    <td>24.02.28 14:59:57</td>
+                    <td>
+                      <img src={emergency} alt="응급" />
+                      낙상감지
+                    </td>
+                    <td
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "4px",
+                      }}
+                    >
+                      확인 전 <RedCheckButton onClick={openPopup} />
+                    </td>
+                  </tr>
+                );
+              })}
           </tbody>
         </S.Table>
         <S.Pagenation>
