@@ -32,7 +32,15 @@ export function useUpdateUser(
       dot.setAttribute("cx", `${x}`);
       dot.setAttribute("cy", `${y}`);
       dot.setAttribute("r", "10");
-      dot.setAttribute("fill", "blue");
+      if (location.type == "emergency") {
+        dot.setAttribute("fill", "#FF594D");
+        dot.classList.add("blink-dot");
+      } else if (location.type == "help") {
+        dot.setAttribute("fill", "#FFA826");
+        dot.classList.add("blink-dot");
+      } else if (location.type == "active") {
+        dot.setAttribute("fill", "#3151B3");
+      }
       dot.setAttribute("border", "1px");
       dot.classList.add("location-dot");
       dot.setAttribute("stroke", "white");

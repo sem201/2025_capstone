@@ -14,11 +14,11 @@ export interface UserLocation {
   ssid: string;
   x: number;
   y: number;
-  type: "active" | "delete";
+  type: "active" | "delete" | "emergency" | "help";
 }
 
 export interface LogData {
-  name: string;
+  patientName: string;
   time: string;
   reason?: string;
 }

@@ -43,8 +43,8 @@ const EmergencyLogFrame = React.memo(
             const response = await ApiInstance.get("api/emergency", {
               params: { date: date },
             });
-            setData(response.data);
-            console.log(response);
+            setData(response.data.data);
+            console.log(response.data);
           } catch (e) {
             console.log(e);
           }
@@ -77,12 +77,13 @@ const EmergencyLogFrame = React.memo(
               data.map((item, idx) => {
                 return (
                   <tr key={idx}>
-                    <td>{item.name}</td>
+                    <td>{item.patientName}</td>
                     <td>24.02.28 14:59:57</td>
                     <td>
                       <img src={emergency} alt="응급" />
                       낙상감지
                     </td>
+
                     <td
                       style={{
                         display: "flex",
@@ -90,7 +91,13 @@ const EmergencyLogFrame = React.memo(
                         gap: "4px",
                       }}
                     >
-                      확인 전 <RedCheckButton onClick={openPopup} />
+                      {item.reason ? (
+                        item.reason
+                      ) : (
+                        <>
+                          확인 전 <RedCheckButton onClick={openPopup} />
+                        </>
+                      )}
                     </td>
                   </tr>
                 );

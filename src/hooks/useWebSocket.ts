@@ -17,6 +17,7 @@ export function useWebSocket({ setUserLocations }: UseWebSocketProps) {
     };
     webSocket.current.onmessage = (e) => {
       const data = JSON.parse(e.data);
+      console.log("웹소켓 데이터", e);
       if (Array.isArray(data)) {
         setUserLocations(data);
       } else if (typeof data === "object" && data !== null) {
