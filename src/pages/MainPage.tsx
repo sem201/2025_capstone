@@ -12,6 +12,7 @@ import EmergencyLogFrame from "@components/logFrame/EmergencyLogFrame";
 import LogFrameDetailEme from "@components/modal/LogFrameDetailEme";
 import { useWebSocket } from "../hooks/useWebSocket";
 import { useUserStore } from "@store/userStore";
+import CheckLocate from "@components/modal/CheckLocate";
 
 const MainPage = () => {
   const [currentFloor, setCurrentFloor] = useState("전체");
@@ -20,6 +21,7 @@ const MainPage = () => {
   const [isLogFrameDetailEme, setIsLogFrameDetailEme] = useState(false);
   const [isEmergency, setIsEmergency] = useState(false);
   const [activePopups, setActivePopups] = useState<UserLocation[]>([]);
+  const [isLocateVisible, setIsLocateVisible] = useState(true);
   const userLocations = useUserStore((state) => state.userLocations);
 
   useWebSocket();
@@ -82,12 +84,6 @@ const MainPage = () => {
           </PopupStack>
         </MainView>
       </Container>
-      {isLogFrameDetailEme && (
-        <LogFrameDetailEme
-          closeDetail={() => setIsLogFrameDetailEme(false)}
-          emergency={isEmergency}
-        />
-      )}
       {isConfirmVisible && (
         <>
           <DarkBackground>
@@ -101,6 +97,15 @@ const MainPage = () => {
             />
           </DarkBackground>
         </>
+      )}
+      {isLogFrameDetailEme && (
+        <LogFrameDetailEme
+          closeDetail={() => setIsLogFrameDetailEme(false)}
+          emergency={isEmergency}
+        />
+      )}
+      {isLocateVisible && (
+        <CheckLocate closeLocate={() => setIsLocateVisible(false)} />
       )}
     </>
   );

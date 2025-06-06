@@ -14,8 +14,6 @@ export const PopupHeader = styled.div<{
   align-items: center;
 
   border-radius: 7.2px 7.2px 0 0;
-
-  cursor: pointer;
 `;
 
 export const PopupBody = styled.div`
