@@ -32,7 +32,6 @@ const EmergencyLogFrame = React.memo(
         const formattedDate =
           isoString.replace("Z", "") + Math.random().toString().slice(2, 8);
         setDate(formattedDate);
-        console.log(formattedDate);
       }
     }, [date]);
 
@@ -44,7 +43,7 @@ const EmergencyLogFrame = React.memo(
               params: { date: date },
             });
             setData(response.data.data);
-            console.log(response.data);
+            console.log("응급 리스트", response);
           } catch (e) {
             console.log(e);
           }

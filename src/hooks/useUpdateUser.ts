@@ -61,6 +61,6 @@ export function useUpdateUser(
       svgRef.current?.appendChild(dot);
       svgRef.current?.appendChild(nameText);
     });
-    console.log("현재 위치", userLocations);
+    // console.log("현재 위치", userLocations);
   }, [userLocations, svgRef, currentFloor]);
 }

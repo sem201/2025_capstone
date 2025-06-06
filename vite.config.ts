@@ -22,6 +22,7 @@ export default defineConfig({
       "@styles": path.resolve(__dirname, "src/styles"),
       "@custom-types": path.resolve(__dirname, "src/types"),
       "@api": path.resolve(__dirname, "src/api"),
+      "@store": path.resolve(__dirname, "src/store"),
     },
   },
   server: {

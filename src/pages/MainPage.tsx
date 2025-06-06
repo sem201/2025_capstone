@@ -4,24 +4,42 @@ import LogFrame from "@components/logFrame/LogFrame";
 import MapHeader from "@components/mainview/MapHeader";
 import MapContainer from "@components/map/MapContainer";
 import LogPopup from "@components/modal/LogPopup";
-import { LogType } from "../types/types";
-import { useState } from "react";
+import { UserLocation } from "../types/types";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import ConfirmPopup from "@components/modal/ConfirmPopup";
 import EmergencyLogFrame from "@components/logFrame/EmergencyLogFrame";
 import LogFrameDetailEme from "@components/modal/LogFrameDetailEme";
+import { useWebSocket } from "../hooks/useWebSocket";
+import { useUserStore } from "@store/userStore";
+
 const MainPage = () => {
   const [currentFloor, setCurrentFloor] = useState("전체");
-  const [isLogPopupVisible, setIsLogPopupVisible] = useState(true);
+  const [_isLogPopupVisible, setIsLogPopupVisible] = useState(false);
   const [isConfirmVisible, setIsConfirmVisible] = useState(false);
   const [isLogFrameDetailEme, setIsLogFrameDetailEme] = useState(false);
-  const tmp: LogType = {
-    emergency: true,
-    problem: "널스콜",
-    name: "홍길동",
-    locate: "5401호",
-    time: "2023-10-10 12:00",
+  const [activePopups, setActivePopups] = useState<UserLocation[]>([]);
+  const userLocations = useUserStore((state) => state.userLocations);
+
+  // 웹소켓 연결
+  useWebSocket();
+
+  // 상태 변경 감지 및 팝업 관리
+  useEffect(() => {
+    userLocations.forEach((user) => {
+      if (
+        (user.type === "emergency" || user.type === "help") &&
+        !activePopups.some((popup) => popup.id === user.id)
+      ) {
+        setActivePopups((prev) => [...prev, user]);
+      }
+    });
+  }, [userLocations]);
+
+  const handleClosePopup = (userId: string) => {
+    setActivePopups((prev) => prev.filter((popup) => popup.id !== userId));
   };
+
   return (
     <>
       <Header />
@@ -40,13 +58,21 @@ const MainPage = () => {
             setCurrentFloor={setCurrentFloor}
           />
           <MapContainer currentFloor={currentFloor} />
-          {isLogPopupVisible && (
-            <LogPopup
-              temp={tmp}
-              onOpenConfirm={() => setIsConfirmVisible(true)}
-              closePopup={() => setIsLogPopupVisible(false)}
-            />
-          )}
+          <PopupStack>
+            {activePopups.map((user, index) => (
+              <LogPopup
+                key={user.id}
+                user={user}
+                onOpenConfirm={() => setIsConfirmVisible(true)}
+                closePopup={() => handleClosePopup(user.id)}
+                style={{
+                  bottom: `${20 + index * 50}px`,
+                  left: `${20 + index * 50}px`,
+                  zIndex: index,
+                }}
+              />
+            ))}
+          </PopupStack>
         </MainView>
       </Container>
       {isLogFrameDetailEme && (
@@ -56,11 +82,11 @@ const MainPage = () => {
         <>
           <DarkBackground>
             <ConfirmPopup
-              temp={tmp}
+              user={activePopups[0]}
               closePopup={() => setIsConfirmVisible(false)}
               submitPopup={() => {
                 setIsConfirmVisible(false);
-                setIsLogPopupVisible(false);
+                handleClosePopup(activePopups[0].id);
               }}
             />
           </DarkBackground>
@@ -98,6 +124,15 @@ const MainView = styled.section`
   position: relative;
 `;
 
+const PopupStack = styled.div`
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`;
+
 const DarkBackground = styled.div`
   position: absolute;
   top: 0;
@@ -105,4 +140,5 @@ const DarkBackground = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
 `;
