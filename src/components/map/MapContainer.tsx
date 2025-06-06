@@ -3,7 +3,6 @@ import * as S from "./map.styled";
 import { useUpdateUser } from "@hooks/useUpdateUser";
 import { useWebSocket } from "@hooks/useWebSocket";
 import { useUserStore } from "@store/userStore";
-import styled from "styled-components";
 import { UserLocation } from "@custom-types/types";
 
 const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
@@ -36,11 +35,11 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
   useUpdateUser(userLocations, svgRef6, currentFloor, handleDotClick);
 
   return (
-    <S.Wrapper>
+    <S.Wrapper showBorder={!!selectedUser}>
       {selectedUser && (
-        <BalloonStack>
-          <Balloon>
-            <Dot
+        <S.BalloonStack>
+          <S.Balloon>
+            <S.Dot
               color={
                 selectedUser.type === "emergency"
                   ? "#FF594D"
@@ -52,9 +51,9 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
             <span style={{ margin: "0 6px" }}>
               {selectedUser.name} 환자 위치확인 중
             </span>
-            <StopButton onClick={handleCloseBalloon}>중지하기</StopButton>
-          </Balloon>
-        </BalloonStack>
+            <S.StopButton onClick={handleCloseBalloon}>중지하기</S.StopButton>
+          </S.Balloon>
+        </S.BalloonStack>
       )}
       {currentFloor === "전체" ? (
         <S.FullView>
@@ -83,49 +82,3 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
 };
 
 export default MapContainer;
-
-const BalloonStack = styled.div`
-  position: absolute;
-  top: 100px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 12px;
-  z-index: 10;
-`;
-
-const Balloon = styled.div`
-  display: flex;
-  align-items: center;
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.13);
-  padding: 8px 16px;
-  font-size: 15px;
-  font-weight: 500;
-`;
-
-const Dot = styled.span<{ color: string }>`
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: ${({ color }) => color};
-  margin-right: 8px;
-`;
-
-const StopButton = styled.button`
-  background: #52525b;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-size: 13px;
-  padding: 4px 12px;
-  margin-left: 10px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background 0.15s;
-  &:hover {
-    background: #33343a;
-  }
-`;
