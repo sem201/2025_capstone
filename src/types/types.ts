@@ -14,4 +14,11 @@ export interface UserLocation {
   ssid: string;
   x: number;
   y: number;
+  type: "active" | "delete" | "emergency" | "help";
+}
+
+export interface LogData {
+  patientName: string;
+  time: string;
+  reason?: string;
 }

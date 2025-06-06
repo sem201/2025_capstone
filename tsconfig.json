@@ -4,10 +4,12 @@
     "paths": {
       "@component/*": ["src/components/*"],
       "@hooks/*": ["src/hooks/*"],
+      "@api/*": ["src/api/*"],
       "@layout/*": ["src/layout/*"],
       "@pages/*": ["src/pages/*"],
       "@assets/*": ["src/assets/*"],
-      "@custom-types/*": ["src/types/*"]
+      "@custom-types/*": ["src/types/*"],
+      "@store/*": ["src/store/*"]
     },
     "types": ["node", "vite-plugin-svgr/client"]
   },

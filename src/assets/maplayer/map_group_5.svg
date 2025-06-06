@@ -849,17 +849,17 @@
 <rect id="8-2_18" x="755" y="705" width="27" height="27" fill="white"/>
 </g>
 </g>
-<g id="stair5_r">
-<rect id="r_0" x="701" y="732" width="81" height="50" fill="#D9D9D9"/>
-<rect id="r_1" x="701" y="782" width="40" height="62" fill="#D9D9D9"/>
-<rect id="r_3" x="741" y="782" width="41" height="62" fill="#D9D9D9"/>
-<rect id="r_2" x="701" y="844" width="81" height="50" fill="#D9D9D9"/>
+<g id="stair_5r">
+<rect id="0-0" x="701" y="732" width="81" height="50" fill="#D9D9D9"/>
+<rect id="1-0" x="701" y="782" width="40" height="62" fill="#D9D9D9"/>
+<rect id="3-0" x="741" y="782" width="41" height="62" fill="#D9D9D9"/>
+<rect id="2-0" x="701" y="844" width="81" height="50" fill="#D9D9D9"/>
 </g>
-<g id="stair5_l">
-<rect id="l_2" x="192" y="339" width="47" height="29" fill="#D9D9D9"/>
-<rect id="l_3" x="192" y="368" width="23.2099" height="63" fill="#D9D9D9"/>
-<rect id="l_1" x="215.21" y="368" width="23.7901" height="63" fill="#D9D9D9"/>
-<rect id="l_0" x="192" y="431" width="47" height="26" fill="#D9D9D9"/>
+<g id="stair_5l">
+<rect id="2-0" x="192" y="339" width="47" height="29" fill="#D9D9D9"/>
+<rect id="3-0" x="192" y="368" width="23.2099" height="63" fill="#D9D9D9"/>
+<rect id="1-0" x="215.21" y="368" width="23.7901" height="63" fill="#D9D9D9"/>
+<rect id="0-0" x="192" y="431" width="47" height="26" fill="#D9D9D9"/>
 </g>
 </g>
 <g id="map">

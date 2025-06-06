@@ -14,8 +14,6 @@ export const PopupHeader = styled.div<{
   align-items: center;
 
   border-radius: 7.2px 7.2px 0 0;
-
-  cursor: pointer;
 `;
 
 export const PopupBody = styled.div`
@@ -151,16 +149,21 @@ export const UserContent = styled.div`
     background-color: ${({ theme }) => theme.colors.B00};
 
     textarea {
-      width: 100% !important;
-      /* height: ; */
+      width: 100%;
+      height: 100%;
       resize: none;
-      padding: 0 4px;
 
       font-family: ${({ theme }) => theme.fonts.small["font-family"]};
       font-size: 12px;
       font-weight: ${({ theme }) => theme.fonts.small["font-weight"]};
       line-height: ${({ theme }) => theme.fonts.small["line-height"]};
       letter-spacing: ${({ theme }) => theme.fonts.small["letter-spacing"]};
+      border-radius: 4px;
+      border-color: ${({ theme }) => theme.colors.B10};
+
+      &:focus {
+        outline: none;
+      }
     }
   }
 `;
@@ -169,18 +172,16 @@ export const InputContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.5rem;
   P {
     margin: 0;
     color: ${({ theme }) => theme.colors.B40};
-    font-family: ${({ theme }) => theme.fonts.small["font-family"]};
-    font-size: 12px;
-    font-weight: ${({ theme }) => theme.fonts.small["font-weight"]};
-    line-height: ${({ theme }) => theme.fonts.small["line-height"]};
-    letter-spacing: ${({ theme }) => theme.fonts.small["letter-spacing"]};
+    ${({ theme }) => theme.fonts.small};
   }
   button {
     width: fit-content;
-    height: 50%;
+    /* height: 50%; */
     background-color: ${({ theme }) => theme.colors.B50};
     border-radius: 4px;
     color: ${({ theme }) => theme.colors.WHITE};
@@ -189,10 +190,68 @@ export const InputContainer = styled.div`
   }
 `;
 
+export const errorContainer = styled.div<{ emergency: boolean }>`
+  background-color: ${({ theme, emergency }) =>
+    emergency ? theme.colors.D10 : theme.colors.N10};
+  color: ${({ theme }) => theme.colors.Black};
+  font-family: ${({ theme }) => theme.fonts.small["font-family"]};
+  font-size: 14px;
+  font-weight: ${({ theme }) => theme.fonts.small["font-weight"]};
+  line-height: ${({ theme }) => theme.fonts.small["line-height"]};
+  letter-spacing: ${({ theme }) => theme.fonts.small["letter-spacing"]};
+`;
+
 export const NameContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 12px;
+`;
+
+export const PatientInfoContainer = styled.div`
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  div {
+    width: 100%;
+    ${({ theme }) => theme.fonts.small};
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 4px;
+
+    border-bottom: 1px solid ${({ theme }) => theme.colors.B10};
+  }
+  span {
+    color: ${({ theme }) => theme.colors.B40};
+  }
+`;
+
+export const UserDiagnosisContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  div {
+    width: 100%;
+    ${({ theme }) => theme.fonts.small};
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 4px;
+  }
+  span {
+    color: ${({ theme }) => theme.colors.B40};
+  }
+  textarea {
+    color: ${({ theme }) => theme.colors.B60};
+    ${({ theme }) => theme.fonts.small};
+    resize: none;
+    border-radius: 4px;
+    border-color: ${({ theme }) => theme.colors.B10};
+    &:focus {
+      outline: none;
+    }
+  }
 `;

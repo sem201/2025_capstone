@@ -4,6 +4,7 @@ import Right from "@assets/icons/Right.svg";
 import emergency from "@assets/icons/emergency.svg";
 import * as S from "./logFrame.styled";
 import RedCheckButton from "@components/common/RedCheckButton";
+import { useLogList } from "@hooks/useLogList";
 
 const EmergencyLogFrame = React.memo(
   ({
@@ -13,14 +14,8 @@ const EmergencyLogFrame = React.memo(
     openPopup: () => void;
     openDetail: () => void;
   }) => {
-    // 층수 변경시 얘도 리렌더링 되는 것을 막음.
-    const [currentPage, setCurrentPage] = React.useState(1);
-    const totalPages = 5;
-    const handlePageChage = (page: number) => {
-      if (page > 0 && page <= totalPages) {
-        setCurrentPage(page);
-      }
-    };
+    const { currentPage, totalPages, data, handlePageChange } =
+      useLogList("api/emergency");
     return (
       <Wrapper>
         <S.LogoTitleHeader>
@@ -42,33 +37,40 @@ const EmergencyLogFrame = React.memo(
             </S.TableRow>
           </thead>
           <tbody>
-            <tr>
-              <td>김철수</td>
-              <td>24.02.28 14:59:57</td>
-              <td>
-                <img src={emergency} alt="응급" />
-                낙상감지
-              </td>
-              <td style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-                확인 전 <RedCheckButton onClick={openPopup} />
-              </td>
-            </tr>
-            <tr>
-              <td>김철수</td>
-              <td>24.02.28 14:59:57</td>
-              <td>
-                <img src={emergency} alt="응급" />
-                낙상감지
-              </td>
-              <td style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-                확인 전 <RedCheckButton onClick={openPopup} />
-              </td>
-            </tr>
+            {data &&
+              data.map((item, idx) => {
+                return (
+                  <tr key={idx}>
+                    <td>{item.patientName}</td>
+                    <td>24.02.28 14:59:57</td>
+                    <td>
+                      <img src={emergency} alt="응급" />
+                      낙상감지
+                    </td>
+
+                    <td
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "4px",
+                      }}
+                    >
+                      {item.reason ? (
+                        item.reason
+                      ) : (
+                        <>
+                          확인 전 <RedCheckButton onClick={openPopup} />
+                        </>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
           </tbody>
         </S.Table>
         <S.Pagenation>
           <button
-            onClick={() => handlePageChage(currentPage - 1)}
+            onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
           >
             {"<"}
@@ -76,14 +78,14 @@ const EmergencyLogFrame = React.memo(
           {Array.from({ length: totalPages }, (_, index) => (
             <button
               key={index + 1}
-              onClick={() => handlePageChage(index + 1)}
+              onClick={() => handlePageChange(index + 1)}
               className={currentPage === index + 1 ? "active" : ""}
             >
               {index + 1}
             </button>
           ))}
           <button
-            onClick={() => handlePageChage(currentPage + 1)}
+            onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
           >
             {">"}

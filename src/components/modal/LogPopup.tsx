@@ -2,47 +2,56 @@ import styled from "styled-components";
 import * as S from "./modal.styled";
 import RedCheckButton from "@components/common/RedCheckButton";
 import YellowCheckButton from "@components/common/YellowCheckButton";
-import { LogType } from "@custom-types/types";
+import { UserLocation } from "@custom-types/types";
 import close from "@assets/icons/closeWhite.svg";
 import emergency from "@assets/icons/emergency.svg";
 import notEmergency from "@assets/icons/notemergency.svg";
 import CheckLocationButton from "@components/common/CheckLocationButton";
 import send from "@assets/icons/Send.svg";
 
+interface LogPopupProps {
+  user: UserLocation;
+  closePopup: () => void;
+  onOpenConfirm: () => void;
+  style?: React.CSSProperties;
+}
+
 const LogPopup = ({
-  temp,
+  user,
   onOpenConfirm,
   closePopup,
-}: {
-  temp: LogType;
-  onOpenConfirm: () => void;
-  closePopup: () => void;
-}) => {
+  style,
+}: LogPopupProps) => {
   return (
-    <Wrapper>
+    <Wrapper style={style}>
       <S.PopupHeader bgcolor="B50">
         <img src={close} alt="닫기버튼" onClick={closePopup} />
       </S.PopupHeader>
       <S.PopupBody>
         <S.PopupTitle>
-          {temp.emergency ? (
-            <img src={emergency} alt="응급상황" />
+          {user.type === "emergency" ? (
+            <>
+              <img src={emergency} alt="응급상황" />
+              <p>낙상감지 환자 발생</p>
+            </>
           ) : (
-            <img src={notEmergency} alt="비응급상황" />
+            <>
+              <img src={notEmergency} alt="비응급상황" />
+              <p>널스콜 환자 발생</p>
+            </>
           )}
-          <p>{temp.problem} 환자 발생</p>
         </S.PopupTitle>
         <hr style={{ width: "80%", margin: "0 0 0.5em " }} />
         <S.PopupContent>
           <div>
-            <p>성명 {temp.name}</p>
-            <p>호실 {temp.locate}</p>
+            <p>성명 {user.name}</p>
+            <p>호실 {user.place}</p>
           </div>
-          <p>발생 시간 {temp.time}</p>
+          <p>발생 시간 {new Date().toLocaleString()}</p>
         </S.PopupContent>
         <CheckLocationButton text="위치확인" img={send} />
         <div style={{ marginBottom: "4px" }}></div>
-        {temp.emergency ? (
+        {user.type === "emergency" ? (
           <RedCheckButton onClick={onOpenConfirm} />
         ) : (
           <YellowCheckButton onClick={onOpenConfirm} />
@@ -56,10 +65,20 @@ export default LogPopup;
 
 const Wrapper = styled.div`
   position: absolute;
-  bottom: 20px;
-  left: 20px;
-
   width: 300px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+  animation: slideIn 0.3s ease-out;
 
-  border-radius: 7.2px;
+  @keyframes slideIn {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
 `;

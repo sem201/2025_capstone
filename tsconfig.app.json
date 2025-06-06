@@ -29,7 +29,9 @@
       "@pages/*": ["src/pages/*"],
       "@assets/*": ["src/assets/*"],
       "@styles/*": ["src/styles/*"],
-      "@custom-types/*": ["src/types/*"]
+      "@api/*": ["src/api/*"],
+      "@custom-types/*": ["src/types/*"],
+      "@store/*": ["src/store/*"]
     }
   },
   "include": ["src"]
