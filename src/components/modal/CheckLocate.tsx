@@ -15,7 +15,6 @@ const CheckLocate = ({
   emergency: boolean;
 }) => {
   const svgRef5 = useRef<SVGSVGElement>(null);
-  const svgRef6 = useRef<SVGSVGElement>(null);
   return (
     <S.Wrapper>
       <PopupHeader bgcolor="B60">
