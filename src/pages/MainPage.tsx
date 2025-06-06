@@ -18,13 +18,11 @@ const MainPage = () => {
   const [_isLogPopupVisible, setIsLogPopupVisible] = useState(false);
   const [isConfirmVisible, setIsConfirmVisible] = useState(false);
   const [isLogFrameDetailEme, setIsLogFrameDetailEme] = useState(false);
+  const [isEmergency, setIsEmergency] = useState(false);
   const [activePopups, setActivePopups] = useState<UserLocation[]>([]);
   const userLocations = useUserStore((state) => state.userLocations);
 
-  // 웹소켓 연결
   useWebSocket();
-
-  // 상태 변경 감지 및 팝업 관리
   useEffect(() => {
     userLocations.forEach((user) => {
       if (
@@ -47,9 +45,18 @@ const MainPage = () => {
         <SideBar>
           <EmergencyLogFrame
             openPopup={() => setIsLogPopupVisible(true)}
-            openDetail={() => setIsLogFrameDetailEme(true)}
+            openDetail={() => {
+              setIsLogFrameDetailEme(true);
+              setIsEmergency(true);
+            }}
           />
-          <LogFrame openPopup={() => setIsLogPopupVisible(true)} />
+          <LogFrame
+            openPopup={() => setIsLogPopupVisible(true)}
+            openDetail={() => {
+              setIsLogFrameDetailEme(true);
+              setIsEmergency(false);
+            }}
+          />
           <CustomList />
         </SideBar>
         <MainView>
@@ -76,7 +83,10 @@ const MainPage = () => {
         </MainView>
       </Container>
       {isLogFrameDetailEme && (
-        <LogFrameDetailEme closeDetail={() => setIsLogFrameDetailEme(false)} />
+        <LogFrameDetailEme
+          closeDetail={() => setIsLogFrameDetailEme(false)}
+          emergency={isEmergency}
+        />
       )}
       {isConfirmVisible && (
         <>

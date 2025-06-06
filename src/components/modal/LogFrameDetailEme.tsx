@@ -2,7 +2,8 @@ import styled from "styled-components";
 import * as S from "./modal.styled";
 import { PopupHeader } from "./modal.styled";
 import close from "@assets/icons/closeWhite.svg";
-import emergency from "@assets/icons/emergency.svg";
+import emergencyImg from "@assets/icons/emergency.svg";
+import nonEmergecyImg from "@assets/icons/notemergency.svg";
 import {
   Pagenation,
   Table,
@@ -13,8 +14,15 @@ import warning from "@assets/icons/Danger.svg";
 import send from "@assets/icons/Send.svg";
 import React from "react";
 import RedCheckButton from "@components/common/RedCheckButton";
+import YellowCheckButton from "@components/common/YellowCheckButton";
 
-const LogFrameDetailEme = ({ closeDetail }: { closeDetail: () => void }) => {
+const LogFrameDetailEme = ({
+  closeDetail,
+  emergency,
+}: {
+  closeDetail: () => void;
+  emergency: boolean;
+}) => {
   const [choosedUser, _setChoosedUser] = React.useState<number | null>(null);
   const [currentPage, setCurrentPage] = React.useState(1);
   const totalPages = 5;
@@ -46,14 +54,34 @@ const LogFrameDetailEme = ({ closeDetail }: { closeDetail: () => void }) => {
                 <td>김철수</td>
                 <td>24.02.28 14:49:23</td>
                 <td>
-                  <img src={emergency} alt="응급" />
+                  <img
+                    src={emergency ? emergencyImg : nonEmergecyImg}
+                    alt="응급"
+                  />
                   &nbsp;낙상감지
                 </td>
-                <td
-                  style={{ display: "flex", alignItems: "center", gap: "4px" }}
-                >
-                  확인 전 <RedCheckButton onClick={() => {}} />
-                </td>
+                {emergency ? (
+                  <td
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "4px",
+                    }}
+                  >
+                    확인 전 <RedCheckButton onClick={() => {}} />
+                  </td>
+                ) : (
+                  <td
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "4px",
+                    }}
+                  >
+                    확인 전 <YellowCheckButton onClick={() => {}} />
+                  </td>
+                )}
+
                 <td></td>
                 <td>
                   <CheckLocationButton text="당시 위치" img={warning} />
@@ -91,21 +119,50 @@ const LogFrameDetailEme = ({ closeDetail }: { closeDetail: () => void }) => {
               <div id="user-info">
                 <S.NameContainer>
                   <div>
-                    <img src={emergency} alt="응급" />
-                    김영호
+                    {emergency ? (
+                      <>
+                        <img src={emergencyImg} alt="응급" />
+                        김영호
+                      </>
+                    ) : (
+                      <>
+                        <img src={nonEmergecyImg} alt="비응급" />
+                        김영호
+                      </>
+                    )}
                   </div>
                   <CheckLocationButton text="위치확인" img={send} />
                 </S.NameContainer>
-                <div></div>
+                <S.PatientInfoContainer>
+                  <div>
+                    <span>호실</span> 3층 104호
+                  </div>
+                  <div>
+                    <span>성별</span> 남 <span>혈액형</span> O
+                    <span>생년월일</span> 54/06/21
+                  </div>
+                </S.PatientInfoContainer>
+                <S.UserDiagnosisContainer>
+                  <div>
+                    <span>담당 의료진 &nbsp;</span>이상호 윤희수
+                  </div>
+                  <div>
+                    <span>병명</span>
+                    <textarea readOnly value="치매로 인한 입원" />
+                  </div>
+                </S.UserDiagnosisContainer>
               </div>
-              <div id="error">
-                <img src={emergency} alt="응급 아이콘" />
-                낙상감지 24.02.26 14:59:57
-              </div>
+              <S.errorContainer emergency={emergency}>
+                <img
+                  src={emergency ? emergencyImg : nonEmergecyImg}
+                  alt="응급 아이콘"
+                />
+                &nbsp;낙상감지 24.02.26 14:59:57
+              </S.errorContainer>
               <div id="input">
                 <S.InputContainer>
                   <p>처리사유</p>
-                  <button>제출하기</button>
+                  <button>저장</button>
                 </S.InputContainer>
                 <textarea />
               </div>
