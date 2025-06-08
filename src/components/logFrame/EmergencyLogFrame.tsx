@@ -56,8 +56,8 @@ const EmergencyLogFrame = React.memo(
                         gap: "4px",
                       }}
                     >
-                      {item.reason ? (
-                        item.reason
+                      {item.name ? (
+                        `완료 (${item.name})`
                       ) : (
                         <>
                           확인 전 <RedCheckButton onClick={openPopup} />

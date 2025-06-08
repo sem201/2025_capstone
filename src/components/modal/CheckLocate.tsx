@@ -2,11 +2,13 @@ import * as S from "./Locate.styled";
 import close from "@assets/icons/closeWhite.svg";
 import emergencyImg from "@assets/icons/emergency.svg";
 import nonEmergencyImg from "@assets/icons/notemergency.svg";
-import { PopupHeader } from "./modal.styled";
+import { PopupHeader, ButtonContainer } from "./modal.styled";
 import YellowCheckButton from "@components/common/YellowCheckButton";
 import RedCheckButton from "@components/common/RedCheckButton";
 import { StyledMap5 } from "@components/map/map.styled";
 import { useRef } from "react";
+import add from "@assets/icons/addMap.svg";
+import minus from "@assets/icons/minusMap.svg";
 const CheckLocate = ({
   closeLocate,
   emergency,
@@ -52,6 +54,14 @@ const CheckLocate = ({
             </>
           )}
         </S.UserContainer>
+        <ButtonContainer>
+          <button>
+            <img src={add} alt="+" />
+          </button>
+          <button>
+            <img src={minus} alt="-" />
+          </button>
+        </ButtonContainer>
         <S.MapContainer>
           <StyledMap5 ref={svgRef5} viewBox="" />
         </S.MapContainer>

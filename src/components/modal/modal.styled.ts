@@ -255,3 +255,17 @@ export const UserDiagnosisContainer = styled.div`
     }
   }
 `;
+
+export const ButtonContainer = styled.div`
+  padding: 8px 0;
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+
+  button {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+`;

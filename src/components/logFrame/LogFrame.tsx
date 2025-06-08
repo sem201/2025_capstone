@@ -5,6 +5,7 @@ import nonemergency from "@assets/icons/notemergency.svg";
 import * as S from "./logFrame.styled";
 import YellowCheckButton from "@components/common/YellowCheckButton";
 import { useLogList } from "@hooks/useLogList";
+import { formatDate } from "@utils/formatDate";
 
 const LogFrame = React.memo(
   ({
@@ -42,7 +43,7 @@ const LogFrame = React.memo(
                 return (
                   <tr key={idx}>
                     <td>{item.patientName}</td>
-                    <td>24.02.28 14:59:57</td>
+                    <td>{formatDate(item.updatedAt)}</td>
                     <td>
                       <img src={nonemergency} alt="응급" />
                       낙상감지
@@ -55,8 +56,8 @@ const LogFrame = React.memo(
                         gap: "4px",
                       }}
                     >
-                      {item.reason ? (
-                        item.reason
+                      {item.name ? (
+                        `완료 (${item.name})`
                       ) : (
                         <>
                           확인 전 <YellowCheckButton onClick={openPopup} />

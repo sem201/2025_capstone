@@ -20,8 +20,18 @@ export interface UserLocation {
 }
 
 export interface LogData {
+  patientId: string;
+  id: string;
   patientName: string;
   time: string;
   updatedAt: string;
+  name?: string;
   reason?: string;
+  patientLocatedInfo: {
+    place: string;
+    x: number;
+    y: number;
+    floor: string;
+    ssid: string;
+  };
 }
