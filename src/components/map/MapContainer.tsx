@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from "react";
+import { useRef, useCallback } from "react";
 import * as S from "./map.styled";
 import { useUpdateUser } from "@hooks/useUpdateUser";
 import { useWebSocket } from "@hooks/useWebSocket";
@@ -9,30 +9,52 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
   const svgRef5 = useRef<SVGSVGElement>(null);
   const svgRef6 = useRef<SVGSVGElement>(null);
   const userLocations = useUserStore((state) => state.userLocations);
-  const [selectedUser, setSelectedUser] = useState<UserLocation | null>(null);
+  const selectedUser = useUserStore((state) => state.selectedUser);
+  const setSelectedUser = useUserStore((state) => state.setSelectedUser);
 
   // 웹 소켓 호출 훅
   useWebSocket();
 
   // 점 클릭 시 말풍선 변경
-  const handleDotClick = useCallback((user: UserLocation) => {
-    setSelectedUser(user);
-  }, []);
+  const handleDotClick = useCallback(
+    (user: UserLocation) => {
+      setSelectedUser(user);
+    },
+    [setSelectedUser]
+  );
 
   const handleCloseBalloon = () => {
+    // selectedUser를 먼저 저장
+    const currentSelectedUser = selectedUser;
+    // 상태 업데이트
+    console.log("currentSelectedUser", currentSelectedUser);
     setSelectedUser(null);
+
     // dot의 filter 제거
     const svg = svgRef5.current || svgRef6.current;
-    if (svg && selectedUser) {
+    if (svg && currentSelectedUser) {
       const dot = svg.querySelector(
-        `.location-dot[data-id='${selectedUser.id}']`
+        `.location-dot[data-id='${currentSelectedUser.patientId}']`
       );
+      console.log("dot", dot);
       if (dot) dot.removeAttribute("filter");
     }
   };
 
-  useUpdateUser(userLocations, svgRef5, currentFloor, handleDotClick);
-  useUpdateUser(userLocations, svgRef6, currentFloor, handleDotClick);
+  useUpdateUser(
+    userLocations,
+    svgRef5,
+    currentFloor,
+    handleDotClick,
+    selectedUser?.id
+  );
+  useUpdateUser(
+    userLocations,
+    svgRef6,
+    currentFloor,
+    handleDotClick,
+    selectedUser?.id
+  );
 
   return (
     <S.Wrapper showBorder={!!selectedUser}>

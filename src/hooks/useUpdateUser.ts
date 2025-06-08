@@ -1,6 +1,6 @@
 import { UserLocation } from "@custom-types/types";
 import { useEffect } from "react";
-import { getCenterXY } from "./getCenterXY";
+import { getCenterXY } from "../utils/getCenterXY";
 
 export function useUpdateUser(
   userLocations: UserLocation[],
@@ -22,6 +22,14 @@ export function useUpdateUser(
 
     userLocations.map((location) => {
       if (location.type == "delete") return;
+      // "전체"가 아닐 때만 층수 체크
+      if (currentFloor !== "전체") {
+        if (
+          (currentFloor === "5" && location.floor !== 5) ||
+          (currentFloor === "6" && location.floor !== 6)
+        )
+          return;
+      }
 
       const center = getCenterXY(location, svgRef);
       if (!center) return;
@@ -30,7 +38,7 @@ export function useUpdateUser(
         "http://www.w3.org/2000/svg",
         "circle"
       );
-      dot.setAttribute("data-id", location.id);
+      dot.setAttribute("data-id", location.patientId);
       dot.setAttribute("cx", `${x}`);
       dot.setAttribute("cy", `${y}`);
       dot.setAttribute("r", "10");

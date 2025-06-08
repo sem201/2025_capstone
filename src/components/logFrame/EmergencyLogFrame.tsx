@@ -5,6 +5,7 @@ import emergency from "@assets/icons/emergency.svg";
 import * as S from "./logFrame.styled";
 import RedCheckButton from "@components/common/RedCheckButton";
 import { useLogList } from "@hooks/useLogList";
+import { formatDate } from "@utils/formatDate";
 
 const EmergencyLogFrame = React.memo(
   ({
@@ -42,7 +43,7 @@ const EmergencyLogFrame = React.memo(
                 return (
                   <tr key={idx}>
                     <td>{item.patientName}</td>
-                    <td>24.02.28 14:59:57</td>
+                    <td>{formatDate(item.updatedAt)}</td>
                     <td>
                       <img src={emergency} alt="응급" />
                       낙상감지

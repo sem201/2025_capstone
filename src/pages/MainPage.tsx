@@ -16,7 +16,6 @@ import CheckLocate from "@components/modal/CheckLocate";
 
 const MainPage = () => {
   const [currentFloor, setCurrentFloor] = useState("전체");
-  const [_isLogPopupVisible, setIsLogPopupVisible] = useState(false);
   const [isConfirmVisible, setIsConfirmVisible] = useState(false);
   const [isLogFrameDetailEme, setIsLogFrameDetailEme] = useState(false);
   const [isEmergency, setIsEmergency] = useState(false);
@@ -46,14 +45,14 @@ const MainPage = () => {
       <Container>
         <SideBar>
           <EmergencyLogFrame
-            openPopup={() => setIsLogPopupVisible(true)}
+            openPopup={() => setIsConfirmVisible(true)}
             openDetail={() => {
               setIsLogFrameDetailEme(true);
               setIsEmergency(true);
             }}
           />
           <LogFrame
-            openPopup={() => setIsLogPopupVisible(true)}
+            openPopup={() => setIsConfirmVisible(true)}
             openDetail={() => {
               setIsLogFrameDetailEme(true);
               setIsEmergency(false);
@@ -105,7 +104,10 @@ const MainPage = () => {
         />
       )}
       {isLocateVisible && (
-        <CheckLocate closeLocate={() => setIsLocateVisible(false)} />
+        <CheckLocate
+          closeLocate={() => setIsLocateVisible(false)}
+          emergency={isEmergency}
+        />
       )}
     </>
   );
