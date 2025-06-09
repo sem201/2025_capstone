@@ -17,6 +17,7 @@ import RedCheckButton from "@components/common/RedCheckButton";
 import YellowCheckButton from "@components/common/YellowCheckButton";
 import { formatDate } from "@utils/formatDate";
 import { useLogList } from "@hooks/useLogList";
+import { useModalStore } from "@store/modalStore";
 
 const LogFrameDetailEme = ({
   closeDetail,
@@ -28,9 +29,18 @@ const LogFrameDetailEme = ({
   const [choosedUser, setChoosedUser] = React.useState<number | null>(null);
   const { currentPage, totalPages, data, handlePageChange } =
     useLogList("api/emergency");
+  const { setIsLocateVisible, setSelectedPatient } = useModalStore();
 
   const handleRowClick = (idx: number) => {
     setChoosedUser(idx);
+    console.log("data", data);
+  };
+
+  const handleLocationClick = () => {
+    if (data && choosedUser !== null) {
+      setSelectedPatient(data[choosedUser]);
+      setIsLocateVisible(true);
+    }
   };
 
   return (
@@ -98,7 +108,11 @@ const LogFrameDetailEme = ({
 
                     <td></td>
                     <td>
-                      <CheckLocationButton text="당시 위치" img={warning} />
+                      <CheckLocationButton
+                        text="당시 위치"
+                        img={warning}
+                        onClick={handleLocationClick}
+                      />
                     </td>
                   </tr>
                 ))}

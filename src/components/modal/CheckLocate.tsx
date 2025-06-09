@@ -9,6 +9,9 @@ import { StyledMap5 } from "@components/map/map.styled";
 import { useRef } from "react";
 import add from "@assets/icons/addMap.svg";
 import minus from "@assets/icons/minusMap.svg";
+import { useModalStore } from "@store/modalStore";
+import { formatDate } from "@utils/formatDate";
+
 const CheckLocate = ({
   closeLocate,
   emergency,
@@ -17,6 +20,8 @@ const CheckLocate = ({
   emergency: boolean;
 }) => {
   const svgRef5 = useRef<SVGSVGElement>(null);
+  const { selectedPatient } = useModalStore();
+
   return (
     <S.Wrapper>
       <PopupHeader bgcolor="B60">
@@ -24,8 +29,9 @@ const CheckLocate = ({
       </PopupHeader>
       <S.ContentContainer>
         <S.UserContainer>
-          <span>성명</span> 김영호 &nbsp;<span>발생 시간</span> 2024.02.26
-          14:59:57&nbsp;
+          <span>성명</span> {selectedPatient?.patientName} &nbsp;
+          <span>발생 시간</span>{" "}
+          {selectedPatient ? formatDate(selectedPatient.updatedAt) : ""}&nbsp;
           {emergency ? (
             <>
               <div>
@@ -35,7 +41,10 @@ const CheckLocate = ({
               </div>
               <div>
                 <span>확인 여부&nbsp;&nbsp;</span>
-                확인 전&nbsp;&nbsp;
+                {selectedPatient?.name
+                  ? `완료 (${selectedPatient.name})`
+                  : "확인 전"}
+                &nbsp;&nbsp;
                 <RedCheckButton onClick={() => {}} />
               </div>
             </>
@@ -48,7 +57,10 @@ const CheckLocate = ({
               </div>
               <div>
                 <span>확인 여부&nbsp;&nbsp;</span>
-                확인 전&nbsp;&nbsp;
+                {selectedPatient?.name
+                  ? `완료 (${selectedPatient.name})`
+                  : "확인 전"}
+                &nbsp;&nbsp;
                 <YellowCheckButton onClick={() => {}} />
               </div>
             </>
