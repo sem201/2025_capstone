@@ -35,3 +35,12 @@ export interface LogData {
     ssid: string;
   };
 }
+
+export interface EmergencyEvent {
+  patientId: number;
+  name: string;
+  place: string;
+  emergencyId: number;
+  createAt: string;
+  type: "emergency" | "help";
+}

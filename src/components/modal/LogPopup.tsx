@@ -2,7 +2,7 @@ import styled from "styled-components";
 import * as S from "./modal.styled";
 import RedCheckButton from "@components/common/RedCheckButton";
 import YellowCheckButton from "@components/common/YellowCheckButton";
-import { UserLocation } from "@custom-types/types";
+import { EmergencyEvent } from "../../types/types";
 import close from "@assets/icons/closeWhite.svg";
 import emergency from "@assets/icons/emergency.svg";
 import notEmergency from "@assets/icons/notemergency.svg";
@@ -10,7 +10,7 @@ import CheckLocationButton from "@components/common/CheckLocationButton";
 import send from "@assets/icons/Send.svg";
 
 interface LogPopupProps {
-  user: UserLocation;
+  user: EmergencyEvent;
   closePopup: () => void;
   onOpenConfirm: () => void;
   style?: React.CSSProperties;
@@ -48,7 +48,7 @@ const LogPopup = ({
             <p>성명 {user.name}</p>
             <p>호실 {user.place}</p>
           </div>
-          <p>발생 시간 {new Date().toLocaleString()}</p>
+          <p>발생 시간 {new Date(user.createAt).toLocaleString()}</p>
         </S.PopupContent>
         <CheckLocationButton text="위치확인" img={send} />
         <div style={{ marginBottom: "4px" }}></div>
