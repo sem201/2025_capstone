@@ -27,30 +27,35 @@ const LogFrameDetailEme = () => {
     setIsLocateVisible,
     setSelectedPatient,
     setIsConfirmVisible,
-    selectedPatient,
-    isEmergency,
     setIsLogFrameDetailEme,
+    isEmergency,
   } = useModalStore();
+
   const handleRowClick = (idx: number) => {
     setChoosedUser(idx);
     console.log("data", data);
   };
 
   const handleLocationClick = (item: any) => {
-    setSelectedPatient(item);
+    console.log("isEmergency", isEmergency);
+    setSelectedPatient({
+      ...item,
+      type: isEmergency ? "emergency" : "nurse-call",
+    });
     setIsLocateVisible(true);
   };
 
   const handleConfirm = (item: any) => {
     setSelectedPatient({
+      ssid: item.patientLocatedInfo.ssid,
       id: item.id,
       patientId: item.patientId,
       name: item.patientName,
       place: item.patientLocatedInfo.place,
-      type: isEmergency ? "emergency" : "help",
+      responsibility: item.reason,
+      type: isEmergency ? "emergency" : "nurse-call",
       updatedAt: item.updatedAt,
     });
-    console.log("selectedPatient", selectedPatient);
     setIsConfirmVisible(true);
   };
 
@@ -117,7 +122,11 @@ const LogFrameDetailEme = () => {
                         }}
                       >
                         {item.name ? `완료 (${item.name})` : "확인 전"}
-                        <YellowCheckButton onClick={() => {}} />
+                        <YellowCheckButton
+                          onClick={() => {
+                            handleConfirm(item);
+                          }}
+                        />
                       </td>
                     )}
 

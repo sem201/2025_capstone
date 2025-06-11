@@ -10,15 +10,20 @@ import { ApiInstance } from "@api/ApiInstance";
 
 const ConfirmPopup = () => {
   const { selectedPatient, setIsConfirmVisible } = useModalStore();
+  console.log("selectedPatient", selectedPatient);
   const inputRef = useRef<HTMLInputElement>(null);
   const submit = () => {
     setIsConfirmVisible(false);
     const name = inputRef.current?.value;
-    const type = selectedPatient?.type === "emergency" ? "emergency" : "help";
+    const type =
+      selectedPatient?.type === "emergency" ? "emergency" : "nurse-call";
+    console.log("name", name);
+    console.log("selectedPatient?.id", selectedPatient?.id);
+    console.log("selectedPatient?.ssid", selectedPatient?.ssid);
     ApiInstance.patch(`/api/${type}`, {
-      id: selectedPatient?.id,
-      patientId: selectedPatient?.patientId,
-      name: name,
+      ssid: selectedPatient?.ssid,
+      id: selectedPatient?.id, // emergencyid or nurse-callid
+      responsibility: name,
     });
   };
   return (

@@ -16,7 +16,6 @@ const EmergencyLogFrame = React.memo(() => {
     setIsLogFrameDetailEme,
     setIsEmergency,
     setSelectedPatient,
-    isEmergency,
   } = useModalStore();
 
   const handleDetailClick = () => {
@@ -27,11 +26,13 @@ const EmergencyLogFrame = React.memo(() => {
   const handleConfirm = (item: any) => {
     console.log("item", item);
     setSelectedPatient({
-      id: item.id,
+      ssid: item.patientLocatedInfo.ssid,
+      id: item.id, // emergencyid
       patientId: item.patientId,
       name: item.patientName,
+      responsibility: item.reason,
       place: item.patientLocatedInfo.place,
-      type: isEmergency ? "emergency" : "help",
+      type: "emergency",
       updatedAt: item.updatedAt,
     });
     setIsEmergency(true);
