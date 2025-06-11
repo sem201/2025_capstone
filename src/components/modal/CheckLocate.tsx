@@ -2,29 +2,52 @@ import * as S from "./Locate.styled";
 import close from "@assets/icons/closeWhite.svg";
 import emergencyImg from "@assets/icons/emergency.svg";
 import nonEmergencyImg from "@assets/icons/notemergency.svg";
-import { PopupHeader } from "./modal.styled";
+import { PopupHeader, ButtonContainer } from "./modal.styled";
 import YellowCheckButton from "@components/common/YellowCheckButton";
 import RedCheckButton from "@components/common/RedCheckButton";
-import { StyledMap5 } from "@components/map/map.styled";
 import { useRef } from "react";
-const CheckLocate = ({
-  closeLocate,
-  emergency,
-}: {
-  closeLocate: () => void;
-  emergency: boolean;
-}) => {
+import { useModalStore } from "@store/modalStore";
+import { formatDate } from "@utils/formatDate";
+import { useDisplayLocation } from "@hooks/useDisplayLocation";
+
+const CheckLocate = () => {
   const svgRef5 = useRef<SVGSVGElement>(null);
+  const svgRef6 = useRef<SVGSVGElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { selectedPatient, isEmergency, setIsLocateVisible } = useModalStore();
+
+  const currentSvgRef =
+    selectedPatient?.patientLocatedInfo?.floor === 5 ? svgRef5 : svgRef6;
+
+  useDisplayLocation(
+    selectedPatient?.patientLocatedInfo
+      ? {
+          place: selectedPatient.patientLocatedInfo.place,
+          floor: selectedPatient.patientLocatedInfo.floor,
+          x: selectedPatient.patientLocatedInfo.x,
+          y: selectedPatient.patientLocatedInfo.y,
+          name: selectedPatient.patientName,
+          type: isEmergency ? "emergency" : "help",
+        }
+      : null,
+    currentSvgRef
+  );
+
   return (
     <S.Wrapper>
       <PopupHeader bgcolor="B60">
-        <img src={close} alt="닫기버튼" onClick={closeLocate} />
+        <img
+          src={close}
+          alt="닫기버튼"
+          onClick={() => setIsLocateVisible(false)}
+        />
       </PopupHeader>
       <S.ContentContainer>
         <S.UserContainer>
-          <span>성명</span> 김영호 &nbsp;<span>발생 시간</span> 2024.02.26
-          14:59:57&nbsp;
-          {emergency ? (
+          <span>성명</span> {selectedPatient?.patientName} &nbsp;
+          <span>발생 시간</span>{" "}
+          {selectedPatient ? formatDate(selectedPatient.updatedAt) : ""}&nbsp;
+          {isEmergency ? (
             <>
               <div>
                 <span>사유&nbsp;&nbsp;</span>
@@ -33,7 +56,10 @@ const CheckLocate = ({
               </div>
               <div>
                 <span>확인 여부&nbsp;&nbsp;</span>
-                확인 전&nbsp;&nbsp;
+                {selectedPatient?.name
+                  ? `완료 (${selectedPatient.name})`
+                  : "확인 전"}
+                &nbsp;&nbsp;
                 <RedCheckButton onClick={() => {}} />
               </div>
             </>
@@ -46,14 +72,19 @@ const CheckLocate = ({
               </div>
               <div>
                 <span>확인 여부&nbsp;&nbsp;</span>
-                확인 전&nbsp;&nbsp;
+                확인 전 &nbsp;&nbsp;
                 <YellowCheckButton onClick={() => {}} />
               </div>
             </>
           )}
         </S.UserContainer>
-        <S.MapContainer>
-          <StyledMap5 ref={svgRef5} viewBox="" />
+        <ButtonContainer></ButtonContainer>
+        <S.MapContainer ref={containerRef}>
+          {selectedPatient?.patientLocatedInfo?.floor === 5 ? (
+            <S.StyledMap5 ref={svgRef5} />
+          ) : selectedPatient?.patientLocatedInfo?.floor === 6 ? (
+            <S.StyledMap6 ref={svgRef6} />
+          ) : null}
         </S.MapContainer>
       </S.ContentContainer>
     </S.Wrapper>

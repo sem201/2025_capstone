@@ -40,7 +40,7 @@ export function useLogList(apiPath: string, dateProp?: string | null) {
     if (page > 0 && page <= totalPages) {
       setCurrentPage(page);
     }
+    console.log("data", data);
   };
-  console.log(data);
   return { currentPage, totalPages, date, data, setDate, handlePageChange };
 }

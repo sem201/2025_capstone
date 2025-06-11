@@ -31,7 +31,8 @@
       "@styles/*": ["src/styles/*"],
       "@api/*": ["src/api/*"],
       "@custom-types/*": ["src/types/*"],
-      "@store/*": ["src/store/*"]
+      "@store/*": ["src/store/*"],
+      "@utils/*": ["src/utils/*"]
     }
   },
   "include": ["src"]

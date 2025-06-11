@@ -22,6 +22,7 @@ const LogPopup = ({
   closePopup,
   style,
 }: LogPopupProps) => {
+  console.log("user", user);
   return (
     <Wrapper style={style}>
       <S.PopupHeader bgcolor="B50">

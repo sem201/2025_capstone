@@ -15,26 +15,53 @@ import send from "@assets/icons/Send.svg";
 import React from "react";
 import RedCheckButton from "@components/common/RedCheckButton";
 import YellowCheckButton from "@components/common/YellowCheckButton";
+import { formatDate } from "@utils/formatDate";
+import { useLogList } from "@hooks/useLogList";
+import { useModalStore } from "@store/modalStore";
 
-const LogFrameDetailEme = ({
-  closeDetail,
-  emergency,
-}: {
-  closeDetail: () => void;
-  emergency: boolean;
-}) => {
-  const [choosedUser, _setChoosedUser] = React.useState<number | null>(null);
-  const [currentPage, setCurrentPage] = React.useState(1);
-  const totalPages = 5;
-  const handlePageChage = (page: number) => {
-    if (page > 0 && page <= totalPages) {
-      setCurrentPage(page);
-    }
+const LogFrameDetailEme = () => {
+  const [choosedUser, setChoosedUser] = React.useState<number | null>(null);
+  const { currentPage, totalPages, data, handlePageChange } =
+    useLogList("api/emergency");
+  const {
+    setIsLocateVisible,
+    setSelectedPatient,
+    setIsConfirmVisible,
+    selectedPatient,
+    isEmergency,
+    setIsLogFrameDetailEme,
+  } = useModalStore();
+  const handleRowClick = (idx: number) => {
+    setChoosedUser(idx);
+    console.log("data", data);
   };
+
+  const handleLocationClick = (item: any) => {
+    setSelectedPatient(item);
+    setIsLocateVisible(true);
+  };
+
+  const handleConfirm = (item: any) => {
+    setSelectedPatient({
+      id: item.id,
+      patientId: item.patientId,
+      name: item.patientName,
+      place: item.patientLocatedInfo.place,
+      type: isEmergency ? "emergency" : "help",
+      updatedAt: item.updatedAt,
+    });
+    console.log("selectedPatient", selectedPatient);
+    setIsConfirmVisible(true);
+  };
+
   return (
     <Wrapper>
       <PopupHeader bgcolor="B50">
-        <img src={close} alt="닫기버튼" onClick={closeDetail} />
+        <img
+          src={close}
+          alt="닫기버튼"
+          onClick={() => setIsLogFrameDetailEme(false)}
+        />
       </PopupHeader>
       <S.DetailPopupBody>
         <div id="log-table">
@@ -49,49 +76,66 @@ const LogFrameDetailEme = ({
                 <th>확인 위치</th>
               </TableRow>
             </thead>
-            <tbody onClick={() => {}}>
-              <tr>
-                <td>김철수</td>
-                <td>24.02.28 14:49:23</td>
-                <td>
-                  <img
-                    src={emergency ? emergencyImg : nonEmergecyImg}
-                    alt="응급"
-                  />
-                  &nbsp;낙상감지
-                </td>
-                {emergency ? (
-                  <td
+            <tbody>
+              {data &&
+                data.map((item, idx) => (
+                  <tr
+                    key={idx}
+                    onClick={() => handleRowClick(idx)}
                     style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "4px",
+                      cursor: "pointer",
+                      backgroundColor:
+                        choosedUser === idx ? "#f5f5f5" : "transparent",
                     }}
                   >
-                    확인 전 <RedCheckButton onClick={() => {}} />
-                  </td>
-                ) : (
-                  <td
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "4px",
-                    }}
-                  >
-                    확인 전 <YellowCheckButton onClick={() => {}} />
-                  </td>
-                )}
+                    <td>{item.patientName}</td>
+                    <td>{formatDate(item.updatedAt)}</td>
+                    <td>
+                      <img
+                        src={isEmergency ? emergencyImg : nonEmergecyImg}
+                        alt="응급"
+                      />
+                      &nbsp;낙상감지
+                    </td>
+                    {isEmergency ? (
+                      <td
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "4px",
+                        }}
+                      >
+                        {item.name ? `완료 (${item.name})` : "확인 전"}
+                        <RedCheckButton onClick={() => handleConfirm(item)} />
+                      </td>
+                    ) : (
+                      <td
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "4px",
+                        }}
+                      >
+                        {item.name ? `완료 (${item.name})` : "확인 전"}
+                        <YellowCheckButton onClick={() => {}} />
+                      </td>
+                    )}
 
-                <td></td>
-                <td>
-                  <CheckLocationButton text="당시 위치" img={warning} />
-                </td>
-              </tr>
+                    <td></td>
+                    <td>
+                      <CheckLocationButton
+                        text="당시 위치"
+                        img={warning}
+                        onClick={() => handleLocationClick(item)}
+                      />
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </Table>
           <Pagenation>
             <button
-              onClick={() => handlePageChage(currentPage - 1)}
+              onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
             >
               {"<"}
@@ -99,14 +143,14 @@ const LogFrameDetailEme = ({
             {Array.from({ length: totalPages }, (_, index) => (
               <button
                 key={index + 1}
-                onClick={() => handlePageChage(index + 1)}
+                onClick={() => handlePageChange(index + 1)}
                 className={currentPage === index + 1 ? "active" : ""}
               >
                 {index + 1}
               </button>
             ))}
             <button
-              onClick={() => handlePageChage(currentPage + 1)}
+              onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
             >
               {">"}
@@ -114,20 +158,20 @@ const LogFrameDetailEme = ({
           </Pagenation>
         </div>
         <S.UserContent>
-          {choosedUser == null ? (
+          {choosedUser !== null && data ? (
             <>
               <div id="user-info">
                 <S.NameContainer>
                   <div>
-                    {emergency ? (
+                    {isEmergency ? (
                       <>
                         <img src={emergencyImg} alt="응급" />
-                        김영호
+                        {data[choosedUser].patientName}
                       </>
                     ) : (
                       <>
                         <img src={nonEmergecyImg} alt="비응급" />
-                        김영호
+                        {data[choosedUser].patientName}
                       </>
                     )}
                   </div>
@@ -135,7 +179,8 @@ const LogFrameDetailEme = ({
                 </S.NameContainer>
                 <S.PatientInfoContainer>
                   <div>
-                    <span>호실</span> 3층 104호
+                    <span>호실</span>{" "}
+                    {data[choosedUser].patientLocatedInfo.place}
                   </div>
                   <div>
                     <span>성별</span> 남 <span>혈액형</span> O
@@ -152,12 +197,12 @@ const LogFrameDetailEme = ({
                   </div>
                 </S.UserDiagnosisContainer>
               </div>
-              <S.errorContainer emergency={emergency}>
+              <S.errorContainer emergency={isEmergency}>
                 <img
-                  src={emergency ? emergencyImg : nonEmergecyImg}
+                  src={isEmergency ? emergencyImg : nonEmergecyImg}
                   alt="응급 아이콘"
                 />
-                &nbsp;낙상감지 24.02.26 14:59:57
+                &nbsp;낙상감지 {formatDate(data[choosedUser].updatedAt)}
               </S.errorContainer>
               <div id="input">
                 <S.InputContainer>
@@ -187,7 +232,7 @@ const Wrapper = styled.section`
   height: 408px;
 
   background-color: ${({ theme }) => theme.colors.WHITE};
-  border-radius: 0 0 7.2px 7.2px;
+  border-radius: 7.2px;
 
   box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.25);
 `;

@@ -4,7 +4,6 @@ import LogFrame from "@components/logFrame/LogFrame";
 import MapHeader from "@components/mainview/MapHeader";
 import MapContainer from "@components/map/MapContainer";
 import LogPopup from "@components/modal/LogPopup";
-import { UserLocation } from "../types/types";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import ConfirmPopup from "@components/modal/ConfirmPopup";
@@ -13,16 +12,20 @@ import LogFrameDetailEme from "@components/modal/LogFrameDetailEme";
 import { useWebSocket } from "../hooks/useWebSocket";
 import { useUserStore } from "@store/userStore";
 import CheckLocate from "@components/modal/CheckLocate";
+import { useModalStore } from "@store/modalStore";
 
 const MainPage = () => {
   const [currentFloor, setCurrentFloor] = useState("전체");
-  const [_isLogPopupVisible, setIsLogPopupVisible] = useState(false);
-  const [isConfirmVisible, setIsConfirmVisible] = useState(false);
-  const [isLogFrameDetailEme, setIsLogFrameDetailEme] = useState(false);
-  const [isEmergency, setIsEmergency] = useState(false);
-  const [activePopups, setActivePopups] = useState<UserLocation[]>([]);
-  const [isLocateVisible, setIsLocateVisible] = useState(true);
   const userLocations = useUserStore((state) => state.userLocations);
+
+  const {
+    isConfirmVisible,
+    setIsConfirmVisible,
+    isLogFrameDetailEme,
+    isLocateVisible,
+    activePopups,
+    setActivePopups,
+  } = useModalStore();
 
   useWebSocket();
   useEffect(() => {
@@ -31,13 +34,13 @@ const MainPage = () => {
         (user.type === "emergency" || user.type === "help") &&
         !activePopups.some((popup) => popup.id === user.id)
       ) {
-        setActivePopups((prev) => [...prev, user]);
+        setActivePopups([...activePopups, user]);
       }
     });
   }, [userLocations]);
 
   const handleClosePopup = (userId: string) => {
-    setActivePopups((prev) => prev.filter((popup) => popup.id !== userId));
+    setActivePopups(activePopups.filter((popup) => popup.id !== userId));
   };
 
   return (
@@ -45,20 +48,8 @@ const MainPage = () => {
       <Header />
       <Container>
         <SideBar>
-          <EmergencyLogFrame
-            openPopup={() => setIsLogPopupVisible(true)}
-            openDetail={() => {
-              setIsLogFrameDetailEme(true);
-              setIsEmergency(true);
-            }}
-          />
-          <LogFrame
-            openPopup={() => setIsLogPopupVisible(true)}
-            openDetail={() => {
-              setIsLogFrameDetailEme(true);
-              setIsEmergency(false);
-            }}
-          />
+          <EmergencyLogFrame />
+          <LogFrame />
           <CustomList />
         </SideBar>
         <MainView>
@@ -88,25 +79,18 @@ const MainPage = () => {
         <>
           <DarkBackground>
             <ConfirmPopup
-              user={activePopups[0]}
-              closePopup={() => setIsConfirmVisible(false)}
-              submitPopup={() => {
-                setIsConfirmVisible(false);
-                handleClosePopup(activePopups[0].id);
-              }}
+            // user={activePopups[0]}
+            // closePopup={() => setIsConfirmVisible(false)}
+            // submitPopup={() => {
+            //   setIsConfirmVisible(false);
+            //   handleClosePopup(activePopups[0].id);
+            // }}
             />
           </DarkBackground>
         </>
       )}
-      {isLogFrameDetailEme && (
-        <LogFrameDetailEme
-          closeDetail={() => setIsLogFrameDetailEme(false)}
-          emergency={isEmergency}
-        />
-      )}
-      {isLocateVisible && (
-        <CheckLocate closeLocate={() => setIsLocateVisible(false)} />
-      )}
+      {isLogFrameDetailEme && <LogFrameDetailEme />}
+      {isLocateVisible && <CheckLocate />}
     </>
   );
 };
