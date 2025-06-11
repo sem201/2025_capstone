@@ -14,7 +14,7 @@ const CheckLocate = () => {
   const svgRef5 = useRef<SVGSVGElement>(null);
   const svgRef6 = useRef<SVGSVGElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { selectedPatient, isEmergency, setIsLocateVisible } = useModalStore();
+  const { selectedPatient, setIsLocateVisible } = useModalStore();
 
   const currentSvgRef =
     selectedPatient?.patientLocatedInfo?.floor === 5 ? svgRef5 : svgRef6;
@@ -27,7 +27,7 @@ const CheckLocate = () => {
           x: selectedPatient.patientLocatedInfo.x,
           y: selectedPatient.patientLocatedInfo.y,
           name: selectedPatient.patientName,
-          type: isEmergency ? "emergency" : "help",
+          type: selectedPatient.type,
         }
       : null,
     currentSvgRef
@@ -47,7 +47,7 @@ const CheckLocate = () => {
           <span>성명</span> {selectedPatient?.patientName} &nbsp;
           <span>발생 시간</span>{" "}
           {selectedPatient ? formatDate(selectedPatient.updatedAt) : ""}&nbsp;
-          {isEmergency ? (
+          {selectedPatient?.type === "emergency" ? (
             <>
               <div>
                 <span>사유&nbsp;&nbsp;</span>

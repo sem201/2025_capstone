@@ -4,19 +4,17 @@ import LogFrame from "@components/logFrame/LogFrame";
 import MapHeader from "@components/mainview/MapHeader";
 import MapContainer from "@components/map/MapContainer";
 import LogPopup from "@components/modal/LogPopup";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import ConfirmPopup from "@components/modal/ConfirmPopup";
 import EmergencyLogFrame from "@components/logFrame/EmergencyLogFrame";
 import LogFrameDetailEme from "@components/modal/LogFrameDetailEme";
 import { useWebSocket } from "../hooks/useWebSocket";
-import { useUserStore } from "@store/userStore";
 import CheckLocate from "@components/modal/CheckLocate";
 import { useModalStore } from "@store/modalStore";
 
 const MainPage = () => {
   const [currentFloor, setCurrentFloor] = useState("전체");
-  const userLocations = useUserStore((state) => state.userLocations);
 
   const {
     isConfirmVisible,
@@ -28,19 +26,11 @@ const MainPage = () => {
   } = useModalStore();
 
   useWebSocket();
-  useEffect(() => {
-    userLocations.forEach((user) => {
-      if (
-        (user.type === "emergency" || user.type === "help") &&
-        !activePopups.some((popup) => popup.id === user.id)
-      ) {
-        setActivePopups([...activePopups, user]);
-      }
-    });
-  }, [userLocations]);
 
-  const handleClosePopup = (userId: string) => {
-    setActivePopups(activePopups.filter((popup) => popup.id !== userId));
+  const handleClosePopup = (emergencyId: number) => {
+    setActivePopups(
+      activePopups.filter((popup) => popup.emergencyId !== emergencyId)
+    );
   };
 
   return (
@@ -59,12 +49,12 @@ const MainPage = () => {
           />
           <MapContainer currentFloor={currentFloor} />
           <PopupStack>
-            {activePopups.map((user, index) => (
+            {activePopups.map((popup, index) => (
               <LogPopup
-                key={user.id}
-                user={user}
+                key={popup.emergencyId}
+                user={popup}
                 onOpenConfirm={() => setIsConfirmVisible(true)}
-                closePopup={() => handleClosePopup(user.id)}
+                closePopup={() => handleClosePopup(popup.emergencyId)}
                 style={{
                   bottom: `${20 + index * 50}px`,
                   left: `${20 + index * 50}px`,
@@ -78,14 +68,7 @@ const MainPage = () => {
       {isConfirmVisible && (
         <>
           <DarkBackground>
-            <ConfirmPopup
-            // user={activePopups[0]}
-            // closePopup={() => setIsConfirmVisible(false)}
-            // submitPopup={() => {
-            //   setIsConfirmVisible(false);
-            //   handleClosePopup(activePopups[0].id);
-            // }}
-            />
+            <ConfirmPopup />
           </DarkBackground>
         </>
       )}

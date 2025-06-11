@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { UserLocation } from "../types/types";
+import { EmergencyEvent } from "../types/types";
 
 interface ModalStore {
   isOpen: boolean;
@@ -12,8 +12,8 @@ interface ModalStore {
   setIsEmergency: (isEmergency: boolean) => void;
   isLocateVisible: boolean;
   setIsLocateVisible: (isVisible: boolean) => void;
-  activePopups: UserLocation[];
-  setActivePopups: (popups: UserLocation[]) => void;
+  activePopups: EmergencyEvent[];
+  setActivePopups: (popups: EmergencyEvent[]) => void;
   selectedPatient: any | null;
   setSelectedPatient: (patient: any | null) => void;
 }
