@@ -11,12 +11,31 @@ import { useModalStore } from "@store/modalStore";
 const EmergencyLogFrame = React.memo(() => {
   const { currentPage, totalPages, data, handlePageChange } =
     useLogList("api/emergency");
-  const { setIsConfirmVisible, setIsLogFrameDetailEme, setIsEmergency } =
-    useModalStore();
+  const {
+    setIsConfirmVisible,
+    setIsLogFrameDetailEme,
+    setIsEmergency,
+    setSelectedPatient,
+    isEmergency,
+  } = useModalStore();
 
   const handleDetailClick = () => {
     setIsEmergency(true);
     setIsLogFrameDetailEme(true);
+  };
+
+  const handleConfirm = (item: any) => {
+    console.log("item", item);
+    setSelectedPatient({
+      id: item.id,
+      patientId: item.patientId,
+      name: item.patientName,
+      place: item.patientLocatedInfo.place,
+      type: isEmergency ? "emergency" : "help",
+      updatedAt: item.updatedAt,
+    });
+    setIsEmergency(true);
+    setIsConfirmVisible(true);
   };
 
   return (
@@ -63,9 +82,7 @@ const EmergencyLogFrame = React.memo(() => {
                     ) : (
                       <>
                         확인 전{" "}
-                        <RedCheckButton
-                          onClick={() => setIsConfirmVisible(true)}
-                        />
+                        <RedCheckButton onClick={() => handleConfirm(item)} />
                       </>
                     )}
                   </td>
