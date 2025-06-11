@@ -22,11 +22,7 @@ const MainPage = () => {
     isConfirmVisible,
     setIsConfirmVisible,
     isLogFrameDetailEme,
-    setIsLogFrameDetailEme,
-    isEmergency,
-    setIsEmergency,
     isLocateVisible,
-    setIsLocateVisible,
     activePopups,
     setActivePopups,
   } = useModalStore();
@@ -52,20 +48,8 @@ const MainPage = () => {
       <Header />
       <Container>
         <SideBar>
-          <EmergencyLogFrame
-            openPopup={() => setIsConfirmVisible(true)}
-            openDetail={() => {
-              setIsLogFrameDetailEme(true);
-              setIsEmergency(true);
-            }}
-          />
-          <LogFrame
-            openPopup={() => setIsConfirmVisible(true)}
-            openDetail={() => {
-              setIsLogFrameDetailEme(true);
-              setIsEmergency(false);
-            }}
-          />
+          <EmergencyLogFrame />
+          <LogFrame />
           <CustomList />
         </SideBar>
         <MainView>
@@ -95,28 +79,18 @@ const MainPage = () => {
         <>
           <DarkBackground>
             <ConfirmPopup
-              user={activePopups[0]}
-              closePopup={() => setIsConfirmVisible(false)}
-              submitPopup={() => {
-                setIsConfirmVisible(false);
-                handleClosePopup(activePopups[0].id);
-              }}
+            // user={activePopups[0]}
+            // closePopup={() => setIsConfirmVisible(false)}
+            // submitPopup={() => {
+            //   setIsConfirmVisible(false);
+            //   handleClosePopup(activePopups[0].id);
+            // }}
             />
           </DarkBackground>
         </>
       )}
-      {isLogFrameDetailEme && (
-        <LogFrameDetailEme
-          closeDetail={() => setIsLogFrameDetailEme(false)}
-          emergency={isEmergency}
-        />
-      )}
-      {isLocateVisible && (
-        <CheckLocate
-          closeLocate={() => setIsLocateVisible(false)}
-          emergency={isEmergency}
-        />
-      )}
+      {isLogFrameDetailEme && <LogFrameDetailEme />}
+      {isLocateVisible && <CheckLocate />}
     </>
   );
 };

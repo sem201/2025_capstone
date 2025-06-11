@@ -147,17 +147,13 @@ export const UserContent = styled.div`
     display: flex;
     flex-direction: column;
     background-color: ${({ theme }) => theme.colors.B00};
+    border-radius: 0 0 7.2px 0;
 
     textarea {
       width: 100%;
       height: 100%;
       resize: none;
-
-      font-family: ${({ theme }) => theme.fonts.small["font-family"]};
-      font-size: 12px;
-      font-weight: ${({ theme }) => theme.fonts.small["font-weight"]};
-      line-height: ${({ theme }) => theme.fonts.small["line-height"]};
-      letter-spacing: ${({ theme }) => theme.fonts.small["letter-spacing"]};
+      ${({ theme }) => theme.fonts.small};
       border-radius: 4px;
       border-color: ${({ theme }) => theme.colors.B10};
 
@@ -181,11 +177,10 @@ export const InputContainer = styled.div`
   }
   button {
     width: fit-content;
-    /* height: 50%; */
     background-color: ${({ theme }) => theme.colors.B50};
     border-radius: 4px;
     color: ${({ theme }) => theme.colors.WHITE};
-
+    border: none;
     cursor: pointer;
   }
 `;

@@ -19,18 +19,18 @@ import { formatDate } from "@utils/formatDate";
 import { useLogList } from "@hooks/useLogList";
 import { useModalStore } from "@store/modalStore";
 
-const LogFrameDetailEme = ({
-  closeDetail,
-  emergency,
-}: {
-  closeDetail: () => void;
-  emergency: boolean;
-}) => {
+const LogFrameDetailEme = () => {
   const [choosedUser, setChoosedUser] = React.useState<number | null>(null);
   const { currentPage, totalPages, data, handlePageChange } =
     useLogList("api/emergency");
-  const { setIsLocateVisible, setSelectedPatient } = useModalStore();
-
+  const {
+    setIsLocateVisible,
+    setSelectedPatient,
+    setIsConfirmVisible,
+    selectedPatient,
+    isEmergency,
+    setIsLogFrameDetailEme,
+  } = useModalStore();
   const handleRowClick = (idx: number) => {
     setChoosedUser(idx);
     console.log("data", data);
@@ -41,10 +41,27 @@ const LogFrameDetailEme = ({
     setIsLocateVisible(true);
   };
 
+  const handleConfirm = (item: any) => {
+    setSelectedPatient({
+      id: item.id,
+      patientId: item.patientId,
+      name: item.patientName,
+      place: item.patientLocatedInfo.place,
+      type: isEmergency ? "emergency" : "help",
+      updatedAt: item.updatedAt,
+    });
+    console.log("selectedPatient", selectedPatient);
+    setIsConfirmVisible(true);
+  };
+
   return (
     <Wrapper>
       <PopupHeader bgcolor="B50">
-        <img src={close} alt="닫기버튼" onClick={closeDetail} />
+        <img
+          src={close}
+          alt="닫기버튼"
+          onClick={() => setIsLogFrameDetailEme(false)}
+        />
       </PopupHeader>
       <S.DetailPopupBody>
         <div id="log-table">
@@ -75,12 +92,12 @@ const LogFrameDetailEme = ({
                     <td>{formatDate(item.updatedAt)}</td>
                     <td>
                       <img
-                        src={emergency ? emergencyImg : nonEmergecyImg}
+                        src={isEmergency ? emergencyImg : nonEmergecyImg}
                         alt="응급"
                       />
                       &nbsp;낙상감지
                     </td>
-                    {emergency ? (
+                    {isEmergency ? (
                       <td
                         style={{
                           display: "flex",
@@ -89,7 +106,7 @@ const LogFrameDetailEme = ({
                         }}
                       >
                         {item.name ? `완료 (${item.name})` : "확인 전"}
-                        <RedCheckButton onClick={() => {}} />
+                        <RedCheckButton onClick={() => handleConfirm(item)} />
                       </td>
                     ) : (
                       <td
@@ -146,7 +163,7 @@ const LogFrameDetailEme = ({
               <div id="user-info">
                 <S.NameContainer>
                   <div>
-                    {emergency ? (
+                    {isEmergency ? (
                       <>
                         <img src={emergencyImg} alt="응급" />
                         {data[choosedUser].patientName}
@@ -180,9 +197,9 @@ const LogFrameDetailEme = ({
                   </div>
                 </S.UserDiagnosisContainer>
               </div>
-              <S.errorContainer emergency={emergency}>
+              <S.errorContainer emergency={isEmergency}>
                 <img
-                  src={emergency ? emergencyImg : nonEmergecyImg}
+                  src={isEmergency ? emergencyImg : nonEmergecyImg}
                   alt="응급 아이콘"
                 />
                 &nbsp;낙상감지 {formatDate(data[choosedUser].updatedAt)}
@@ -215,7 +232,7 @@ const Wrapper = styled.section`
   height: 408px;
 
   background-color: ${({ theme }) => theme.colors.WHITE};
-  border-radius: 0 0 7.2px 7.2px;
+  border-radius: 7.2px;
 
   box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.25);
 `;

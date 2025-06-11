@@ -10,17 +10,11 @@ import { useModalStore } from "@store/modalStore";
 import { formatDate } from "@utils/formatDate";
 import { useDisplayLocation } from "@hooks/useDisplayLocation";
 
-const CheckLocate = ({
-  closeLocate,
-  emergency,
-}: {
-  closeLocate: () => void;
-  emergency: boolean;
-}) => {
+const CheckLocate = () => {
   const svgRef5 = useRef<SVGSVGElement>(null);
   const svgRef6 = useRef<SVGSVGElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { selectedPatient } = useModalStore();
+  const { selectedPatient, isEmergency, setIsLocateVisible } = useModalStore();
 
   const currentSvgRef =
     selectedPatient?.patientLocatedInfo?.floor === 5 ? svgRef5 : svgRef6;
@@ -33,7 +27,7 @@ const CheckLocate = ({
           x: selectedPatient.patientLocatedInfo.x,
           y: selectedPatient.patientLocatedInfo.y,
           name: selectedPatient.patientName,
-          type: emergency ? "emergency" : "help",
+          type: isEmergency ? "emergency" : "help",
         }
       : null,
     currentSvgRef
@@ -42,14 +36,18 @@ const CheckLocate = ({
   return (
     <S.Wrapper>
       <PopupHeader bgcolor="B60">
-        <img src={close} alt="닫기버튼" onClick={closeLocate} />
+        <img
+          src={close}
+          alt="닫기버튼"
+          onClick={() => setIsLocateVisible(false)}
+        />
       </PopupHeader>
       <S.ContentContainer>
         <S.UserContainer>
           <span>성명</span> {selectedPatient?.patientName} &nbsp;
           <span>발생 시간</span>{" "}
           {selectedPatient ? formatDate(selectedPatient.updatedAt) : ""}&nbsp;
-          {emergency ? (
+          {isEmergency ? (
             <>
               <div>
                 <span>사유&nbsp;&nbsp;</span>
