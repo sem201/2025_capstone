@@ -23,6 +23,17 @@ const LogPopup = ({
   style,
 }: LogPopupProps) => {
   console.log("user", user);
+  const handleLocationCheck = (user: EmergencyEvent) => {
+    const dot = document.querySelector(
+      `.location-dot[data-id='${user.patientId}']`
+    );
+    if (dot) {
+      let shadowColor = "#3151B3";
+      if (user.type === "emergency") shadowColor = "rgb(255, 17, 0)";
+      else if (user.type === "help") shadowColor = "#FFA826";
+      dot.setAttribute("filter", `drop-shadow(0 0 8px ${shadowColor})`);
+    }
+  };
   return (
     <Wrapper style={style}>
       <S.PopupHeader bgcolor="B50">
@@ -50,7 +61,11 @@ const LogPopup = ({
           </div>
           <p>발생 시간 {new Date(user.createAt).toLocaleString()}</p>
         </S.PopupContent>
-        <CheckLocationButton text="위치확인" img={send} />
+        <CheckLocationButton
+          text="위치확인"
+          img={send}
+          onClick={() => handleLocationCheck(user)}
+        />
         <div style={{ marginBottom: "4px" }}></div>
         {user.type === "emergency" ? (
           <RedCheckButton onClick={onOpenConfirm} />
