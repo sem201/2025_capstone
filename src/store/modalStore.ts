@@ -27,7 +27,7 @@ export const useModalStore = create<ModalStore>((set) => ({
   setIsLogFrameDetailEme: (isLogFrameDetailEme) => set({ isLogFrameDetailEme }),
   isEmergency: false,
   setIsEmergency: (isEmergency) => set({ isEmergency }),
-  isLocateVisible: true,
+  isLocateVisible: false,
   setIsLocateVisible: (isLocateVisible) => set({ isLocateVisible }),
   activePopups: [],
   setActivePopups: (activePopups) => set({ activePopups }),

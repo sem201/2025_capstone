@@ -1,12 +1,14 @@
 import styled from "styled-components";
+import Map5 from "@assets/maplayer/map_group_5.svg?component";
+import Map6 from "@assets/maplayer/map_group_6.svg?component";
 
 export const Wrapper = styled.div`
   position: absolute;
   top: 50%;
   left: 70%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -30%);
   width: 550px;
-  height: 400px;
+  height: 600px;
 
   background-color: ${({ theme }) => theme.colors.WHITE};
   border-radius: 0 0 7.2px 7.2px;
@@ -42,4 +44,25 @@ export const UserContainer = styled.section`
   }
 `;
 
-export const MapContainer = styled.section``;
+export const MapContainer = styled.section`
+  width: 100%;
+  height: 100%;
+`;
+
+export const StyledMap5 = styled(Map5)`
+  width: 70%;
+  height: 70%;
+  max-width: 703px;
+  transform-origin: center;
+  object-fit: contain;
+  overflow: hidden;
+`;
+
+export const StyledMap6 = styled(Map6)`
+  width: 70%;
+  height: 70%;
+  max-width: 703px;
+  transform-origin: center;
+  object-fit: contain;
+  overflow: hidden;
+`;

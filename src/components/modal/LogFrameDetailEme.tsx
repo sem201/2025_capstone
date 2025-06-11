@@ -36,11 +36,9 @@ const LogFrameDetailEme = ({
     console.log("data", data);
   };
 
-  const handleLocationClick = () => {
-    if (data && choosedUser !== null) {
-      setSelectedPatient(data[choosedUser]);
-      setIsLocateVisible(true);
-    }
+  const handleLocationClick = (item: any) => {
+    setSelectedPatient(item);
+    setIsLocateVisible(true);
   };
 
   return (
@@ -111,7 +109,7 @@ const LogFrameDetailEme = ({
                       <CheckLocationButton
                         text="당시 위치"
                         img={warning}
-                        onClick={handleLocationClick}
+                        onClick={() => handleLocationClick(item)}
                       />
                     </td>
                   </tr>
