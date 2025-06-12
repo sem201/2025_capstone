@@ -9,11 +9,7 @@ export const HeaderWrapper = styled.section`
   height: 40px;
 
   background-color: ${({ theme }) => theme.colors.B60};
-  font-family: ${({ theme }) => theme.fonts.body4["font-family"]};
-  font-size: ${({ theme }) => theme.fonts.body4["font-size"]};
-  font-weight: ${({ theme }) => theme.fonts.body4["font-weight"]};
-  line-height: ${({ theme }) => theme.fonts.body4["line-height"]};
-  letter-spacing: ${({ theme }) => theme.fonts.body4["letter-spacing"]};
+  ${({ theme }) => theme.fonts.body4}
 
   color: ${({ theme }) => theme.colors.B10};
 

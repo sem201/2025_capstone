@@ -40,15 +40,15 @@ const MapHeader = ({
       <S.UserStatusWrapper>
         <S.state>
           <img src={normal} alt="상태:일반" />
-          일반
+          &nbsp;일반
         </S.state>
         <S.state>
           <img src={emergency} alt="상태:위급" />
-          낙상감지
+          &nbsp;낙상감지
         </S.state>
         <S.state>
           <img src={nurse} alt="상태:호출" />
-          널스콜
+          &nbsp;널스콜
         </S.state>
       </S.UserStatusWrapper>
     </Wrapper>
