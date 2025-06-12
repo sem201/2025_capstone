@@ -68,7 +68,7 @@ const EmergencyLogFrame = React.memo(() => {
                   <td>{formatDate(item.updatedAt)}</td>
                   <td>
                     <img src={emergency} alt="응급" />
-                    낙상감지
+                    &nbsp;낙상감지
                   </td>
 
                   <td

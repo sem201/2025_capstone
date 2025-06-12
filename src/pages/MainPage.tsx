@@ -18,20 +18,12 @@ const MainPage = () => {
 
   const {
     isConfirmVisible,
-    setIsConfirmVisible,
     isLogFrameDetailEme,
     isLocateVisible,
     activePopups,
-    setActivePopups,
   } = useModalStore();
 
   useWebSocket();
-
-  const handleClosePopup = (emergencyId: number) => {
-    setActivePopups(
-      activePopups.filter((popup) => popup.emergencyId !== emergencyId)
-    );
-  };
 
   return (
     <>
@@ -53,8 +45,6 @@ const MainPage = () => {
               <LogPopup
                 key={popup.emergencyId}
                 user={popup}
-                onOpenConfirm={() => setIsConfirmVisible(true)}
-                closePopup={() => handleClosePopup(popup.emergencyId)}
                 style={{
                   bottom: `${20 + index * 50}px`,
                   left: `${20 + index * 50}px`,
