@@ -17,8 +17,10 @@ export const UserStatusWrapper = styled.div`
 
 export const state = styled.div`
   color: ${({ theme }) => theme.colors.B60};
+  ${({ theme }) => theme.fonts.body4}
 
-  font-family: ${({ theme }) => theme.fonts.body4["font-family"]};
-  font-size: ${({ theme }) => theme.fonts.body4["font-size"]};
-  font-weight: ${({ theme }) => theme.fonts.body4["font-weight"]};
+  img {
+    width: 12px;
+    height: 12px;
+  }
 `;
