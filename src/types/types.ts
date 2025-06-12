@@ -39,7 +39,9 @@ export interface LogData {
 export interface EmergencyEvent {
   patientId: number;
   name: string;
-  place: string;
+  locatedInfo: {
+    place: string;
+  };
   emergencyId: number;
   createAt: string;
   type: "emergency" | "help";

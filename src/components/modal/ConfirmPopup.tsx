@@ -7,6 +7,7 @@ import CommonButton2 from "@components/common/CommonButton2";
 import { useModalStore } from "@store/modalStore";
 import { useRef } from "react";
 import { ApiInstance } from "@api/ApiInstance";
+import { formatDate } from "@utils/formatDate";
 
 const ConfirmPopup = () => {
   const { selectedPatient, setIsConfirmVisible } = useModalStore();
@@ -20,9 +21,11 @@ const ConfirmPopup = () => {
     console.log("name", name);
     console.log("selectedPatient?.id", selectedPatient?.id);
     console.log("selectedPatient?.ssid", selectedPatient?.ssid);
+
     ApiInstance.patch(`/api/${type}`, {
       ssid: selectedPatient?.ssid,
-      id: selectedPatient?.id, // emergencyid or nurse-callid
+      [type === "emergency" ? "emergencyId" : "nurseCallId"]:
+        selectedPatient?.id,
       responsibility: name,
     });
   };
@@ -54,7 +57,7 @@ const ConfirmPopup = () => {
             </p>
             <p>호실 {selectedPatient?.place}&nbsp;&nbsp;</p>
           </div>
-          <p>발생 시간 {selectedPatient?.updatedAt.toLocaleString("kr")}</p>
+          <p>발생 시간 {formatDate(selectedPatient?.updatedAt)}</p>
         </S.PopupContent>
         <S.ConfirmPopupBody>
           <p>아래에 담당자 성명을 입력해주세요.</p>

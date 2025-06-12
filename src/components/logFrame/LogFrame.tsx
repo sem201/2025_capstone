@@ -68,7 +68,7 @@ const LogFrame = React.memo(() => {
                   <td>{formatDate(item.updatedAt)}</td>
                   <td>
                     <img src={nonemergency} alt="응급" />
-                    널스콜
+                    &nbsp;널스콜
                   </td>
 
                   <td

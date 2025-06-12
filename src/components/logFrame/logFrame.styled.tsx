@@ -13,11 +13,11 @@ export const Table = styled.table`
   border-collapse: collapse;
   text-align: left;
   td {
-    font-family: ${({ theme }) => theme.fonts.body5["font-family"]};
-    font-size: ${({ theme }) => theme.fonts.body5["font-size"]};
-    font-weight: ${({ theme }) => theme.fonts.body5["font-weight"]};
-    line-height: ${({ theme }) => theme.fonts.body5["line-height"]};
-    letter-spacing: ${({ theme }) => theme.fonts.body5["letter-spacing"]};
+    ${({ theme }) => theme.fonts.body5}
+  }
+  img {
+    width: 9px;
+    height: 9px;
   }
 `;
 export const TableRow = styled.tr`
@@ -30,11 +30,7 @@ export const TableRow = styled.tr`
   border-left: 1px;
   border-right: 1px;
 
-  font-family: ${({ theme }) => theme.fonts.body4["font-family"]};
-  font-size: ${({ theme }) => theme.fonts.body4["font-size"]};
-  font-weight: ${({ theme }) => theme.fonts.body4["font-weight"]};
-  line-height: ${({ theme }) => theme.fonts.body4["line-height"]};
-  letter-spacing: ${({ theme }) => theme.fonts.body4["letter-spacing"]};
+  ${({ theme }) => theme.fonts.body4}
 
   td,
   th {

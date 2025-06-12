@@ -2,8 +2,8 @@ import { create } from "zustand";
 import { EmergencyEvent } from "../types/types";
 
 interface ModalStore {
-  isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
+  // isOpen: boolean;
+  // setIsOpen: (isOpen: boolean) => void;
   isConfirmVisible: boolean;
   setIsConfirmVisible: (isVisible: boolean) => void;
   isLogFrameDetailEme: boolean;
@@ -19,8 +19,8 @@ interface ModalStore {
 }
 
 export const useModalStore = create<ModalStore>((set) => ({
-  isOpen: false,
-  setIsOpen: (isOpen) => set({ isOpen }),
+  // isOpen: false,
+  // setIsOpen: (isOpen) => set({ isOpen }),
   isConfirmVisible: false,
   setIsConfirmVisible: (isConfirmVisible) => set({ isConfirmVisible }),
   isLogFrameDetailEme: false,

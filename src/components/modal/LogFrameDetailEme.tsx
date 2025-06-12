@@ -59,6 +59,8 @@ const LogFrameDetailEme = () => {
     setIsConfirmVisible(true);
   };
 
+  const handleSave = () => {};
+
   return (
     <Wrapper>
       <PopupHeader bgcolor="B50">
@@ -216,7 +218,7 @@ const LogFrameDetailEme = () => {
               <div id="input">
                 <S.InputContainer>
                   <p>처리사유</p>
-                  <button>저장</button>
+                  <button onClick={handleSave}>저장</button>
                 </S.InputContainer>
                 <textarea />
               </div>

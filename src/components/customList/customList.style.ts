@@ -1,11 +1,7 @@
 import styled from "styled-components";
 
 export const Title = styled.p`
-  font-family: ${({ theme }) => theme.fonts.body3["font-family"]};
-  font-size: ${({ theme }) => theme.fonts.body3["font-size"]};
-  font-weight: ${({ theme }) => theme.fonts.body3["font-weight"]};
-  line-height: ${({ theme }) => theme.fonts.body3["line-height"]};
-  letter-spacing: ${({ theme }) => theme.fonts.body3["letter-spacing"]};
+  ${({ theme }) => theme.fonts.body3}
 `;
 
 export const InputContainer = styled.div`
