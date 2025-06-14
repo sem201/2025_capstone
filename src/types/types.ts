@@ -25,6 +25,7 @@ export interface LogData {
   patientName: string;
   time: string;
   updatedAt: string;
+  responsibility?: string;
   name?: string;
   reason?: string;
   patientLocatedInfo: {

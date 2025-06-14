@@ -112,8 +112,16 @@ const LogFrameDetailEme = () => {
                           gap: "4px",
                         }}
                       >
-                        {item.name ? `완료 (${item.name})` : "확인 전"}
-                        <RedCheckButton onClick={() => handleConfirm(item)} />
+                        {item.responsibility ? (
+                          `완료 (${item.responsibility})`
+                        ) : (
+                          <>
+                            확인 전
+                            <RedCheckButton
+                              onClick={() => handleConfirm(item)}
+                            />
+                          </>
+                        )}
                       </td>
                     ) : (
                       <td
@@ -123,7 +131,9 @@ const LogFrameDetailEme = () => {
                           gap: "4px",
                         }}
                       >
-                        {item.name ? `완료 (${item.name})` : "확인 전"}
+                        {item.responsibility
+                          ? `완료 (${item.responsibility})`
+                          : "확인 전"}
                         <YellowCheckButton
                           onClick={() => {
                             handleConfirm(item);
@@ -224,7 +234,7 @@ const LogFrameDetailEme = () => {
               </div>
             </>
           ) : (
-            <div> 열람할 내역을 선택해주세요</div>
+            <S.EmptyUser> 열람할 내역을 선택해주세요</S.EmptyUser>
           )}
         </S.UserContent>
       </S.DetailPopupBody>

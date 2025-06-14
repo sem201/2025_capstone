@@ -2,7 +2,6 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import svgr from "vite-plugin-svgr";
-// import fs from "fs";
 
 export default defineConfig({
   plugins: [
@@ -25,11 +24,4 @@ export default defineConfig({
       "@utils": path.resolve(__dirname, "src/utils"),
     },
   },
-  // server: {
-  //   https: {
-  //     key: fs.readFileSync(path.resolve(__dirname, "localhost-key.pem")),
-  //     cert: fs.readFileSync(path.resolve(__dirname, "localhost.pem")),
-  //   },
-  //   port: 5173,
-  // },
 });

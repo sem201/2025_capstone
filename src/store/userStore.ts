@@ -15,6 +15,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
   setUserLocations: (locations) => set({ userLocations: locations }),
   updateUserLocation: (data) => {
     const current = get().userLocations;
+    console.log("current", current);
     const index = current.findIndex((loc) => loc.id === data.id);
     if (index === -1) {
       set({ userLocations: [...current, data] });

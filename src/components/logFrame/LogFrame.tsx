@@ -30,7 +30,7 @@ const LogFrame = React.memo(() => {
       id: item.id, // emergencyid
       patientId: item.patientId,
       name: item.patientName,
-      responsibility: item.reason,
+      responsibility: item.responsibility,
       place: item.patientLocatedInfo.place,
       type: "nurse-call",
       updatedAt: item.updatedAt,
@@ -78,8 +78,8 @@ const LogFrame = React.memo(() => {
                       gap: "4px",
                     }}
                   >
-                    {item.name ? (
-                      `완료 (${item.name})`
+                    {item.responsibility ? (
+                      `완료 (${item.responsibility})`
                     ) : (
                       <>
                         확인 전{" "}
