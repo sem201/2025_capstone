@@ -10,11 +10,22 @@ import { ApiInstance } from "@api/ApiInstance";
 import { formatDate } from "@utils/formatDate";
 
 const ConfirmPopup = () => {
-  const { selectedPatient, setIsConfirmVisible } = useModalStore();
-  console.log("selectedPatient", selectedPatient);
+  const {
+    selectedPatient,
+    setIsConfirmVisible,
+    activePopups,
+    setActivePopups,
+    setShouldUpdateLogList,
+  } = useModalStore();
+
   const inputRef = useRef<HTMLInputElement>(null);
+
   const submit = () => {
     setIsConfirmVisible(false);
+    setActivePopups(
+      activePopups.filter((popup) => popup.emergencyId !== selectedPatient?.id)
+    );
+
     const name = inputRef.current?.value;
     const type =
       selectedPatient?.type === "emergency" ? "emergency" : "nurse-call";
@@ -28,6 +39,7 @@ const ConfirmPopup = () => {
         selectedPatient?.id,
       responsibility: name,
     });
+    setShouldUpdateLogList((prev) => !prev);
   };
   return (
     <Wrapper>

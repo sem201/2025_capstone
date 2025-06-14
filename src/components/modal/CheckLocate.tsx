@@ -14,12 +14,18 @@ const CheckLocate = () => {
   const svgRef5 = useRef<SVGSVGElement>(null);
   const svgRef6 = useRef<SVGSVGElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { selectedPatient, setIsLocateVisible } = useModalStore();
+  const {
+    selectedPatient,
+    setIsLocateVisible,
+    setIsConfirmVisible,
+    setSelectedPatient,
+  } = useModalStore();
 
   const currentSvgRef =
     selectedPatient?.patientLocatedInfo?.floor === 5 ? svgRef5 : svgRef6;
 
   useDisplayLocation(
+    // console.log("selectedPatient", selectedPatient),
     selectedPatient?.patientLocatedInfo
       ? {
           place: selectedPatient.patientLocatedInfo.place,
@@ -32,6 +38,20 @@ const CheckLocate = () => {
       : null,
     currentSvgRef
   );
+
+  const handleConfirm = (item: any) => {
+    setSelectedPatient({
+      ssid: item.patientLocatedInfo.ssid,
+      id: item.id, // emergencyid
+      patientId: item.patientId,
+      name: item.patientName,
+      responsibility: item.responsibility,
+      place: item.patientLocatedInfo.place,
+      // type: isEmergency ? "emergency" : "nurse-call",
+      updatedAt: item.updatedAt,
+    });
+    setIsConfirmVisible(true);
+  };
 
   return (
     <S.Wrapper>
@@ -56,11 +76,16 @@ const CheckLocate = () => {
               </div>
               <div>
                 <span>확인 여부&nbsp;&nbsp;</span>
-                {selectedPatient?.name
-                  ? `완료 (${selectedPatient.name})`
-                  : "확인 전"}
-                &nbsp;&nbsp;
-                <RedCheckButton onClick={() => {}} />
+                {selectedPatient?.responsibility ? (
+                  `완료 (${selectedPatient.responsibility})`
+                ) : (
+                  <>
+                    "확인 전"
+                    <RedCheckButton
+                      onClick={() => handleConfirm(selectedPatient)}
+                    />
+                  </>
+                )}
               </div>
             </>
           ) : (
@@ -72,8 +97,10 @@ const CheckLocate = () => {
               </div>
               <div>
                 <span>확인 여부&nbsp;&nbsp;</span>
-                확인 전 &nbsp;&nbsp;
-                <YellowCheckButton onClick={() => {}} />
+                확인 전
+                <YellowCheckButton
+                  onClick={() => handleConfirm(selectedPatient)}
+                />
               </div>
             </>
           )}

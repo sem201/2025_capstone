@@ -264,3 +264,11 @@ export const ButtonContainer = styled.div`
     cursor: pointer;
   }
 `;
+
+export const EmptyUser = styled.div`
+  ${({ theme }) => theme.fonts.body4};
+  color: ${({ theme }) => theme.colors.B40};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

@@ -12,7 +12,7 @@ import {
 import CheckLocationButton from "@components/common/CheckLocationButton";
 import warning from "@assets/icons/Danger.svg";
 import send from "@assets/icons/Send.svg";
-import React from "react";
+import React, { useEffect } from "react";
 import RedCheckButton from "@components/common/RedCheckButton";
 import YellowCheckButton from "@components/common/YellowCheckButton";
 import { formatDate } from "@utils/formatDate";
@@ -21,15 +21,18 @@ import { useModalStore } from "@store/modalStore";
 
 const LogFrameDetailEme = () => {
   const [choosedUser, setChoosedUser] = React.useState<number | null>(null);
-  const { currentPage, totalPages, data, handlePageChange } =
-    useLogList("api/emergency");
   const {
     setIsLocateVisible,
     setSelectedPatient,
     setIsConfirmVisible,
     setIsLogFrameDetailEme,
     isEmergency,
+    setShouldUpdateLogList,
   } = useModalStore();
+  const type = isEmergency ? "emergency" : "nurse-call";
+  const { currentPage, totalPages, data, handlePageChange } = useLogList(
+    `api/${type}`
+  );
 
   const handleRowClick = (idx: number) => {
     setChoosedUser(idx);
@@ -60,6 +63,10 @@ const LogFrameDetailEme = () => {
   };
 
   const handleSave = () => {};
+
+  useEffect(() => {
+    setShouldUpdateLogList(true);
+  }, [setShouldUpdateLogList]);
 
   return (
     <Wrapper>
@@ -112,8 +119,16 @@ const LogFrameDetailEme = () => {
                           gap: "4px",
                         }}
                       >
-                        {item.name ? `완료 (${item.name})` : "확인 전"}
-                        <RedCheckButton onClick={() => handleConfirm(item)} />
+                        {item.responsibility ? (
+                          `완료 (${item.responsibility})`
+                        ) : (
+                          <>
+                            확인 전
+                            <RedCheckButton
+                              onClick={() => handleConfirm(item)}
+                            />
+                          </>
+                        )}
                       </td>
                     ) : (
                       <td
@@ -123,12 +138,18 @@ const LogFrameDetailEme = () => {
                           gap: "4px",
                         }}
                       >
-                        {item.name ? `완료 (${item.name})` : "확인 전"}
-                        <YellowCheckButton
-                          onClick={() => {
-                            handleConfirm(item);
-                          }}
-                        />
+                        {item.responsibility ? (
+                          `완료 (${item.responsibility})`
+                        ) : (
+                          <>
+                            확인 전
+                            <YellowCheckButton
+                              onClick={() => {
+                                handleConfirm(item);
+                              }}
+                            />
+                          </>
+                        )}
                       </td>
                     )}
 
@@ -224,7 +245,7 @@ const LogFrameDetailEme = () => {
               </div>
             </>
           ) : (
-            <div> 열람할 내역을 선택해주세요</div>
+            <S.EmptyUser> 열람할 내역을 선택해주세요</S.EmptyUser>
           )}
         </S.UserContent>
       </S.DetailPopupBody>

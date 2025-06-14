@@ -9,6 +9,7 @@ import notEmergency from "@assets/icons/notemergency.svg";
 import CheckLocationButton from "@components/common/CheckLocationButton";
 import send from "@assets/icons/Send.svg";
 import { useModalStore } from "@store/modalStore";
+import { useEffect } from "react";
 
 interface LogPopupProps {
   user: EmergencyEvent;
@@ -21,10 +22,16 @@ const LogPopup = ({ user, style }: LogPopupProps) => {
     setSelectedPatient,
     activePopups,
     setActivePopups,
+    setShouldUpdateLogList,
   } = useModalStore();
 
+  // 팝업 떴을 때 로그 리스트 최신화
+  useEffect(() => {
+    console.log("팝업이 열렸을 때 로그 리스트 업데이트", user.emergencyId);
+    setShouldUpdateLogList(true);
+  }, [user.emergencyId]);
+
   const handleConfirm = (user: any) => {
-    console.log("user", user);
     setIsConfirmVisible(true);
     setSelectedPatient({
       ssid: user.locatedInfo.ssid,
