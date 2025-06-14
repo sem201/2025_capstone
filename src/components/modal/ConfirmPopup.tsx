@@ -15,8 +15,11 @@ const ConfirmPopup = () => {
     setIsConfirmVisible,
     activePopups,
     setActivePopups,
+    setShouldUpdateLogList,
   } = useModalStore();
+
   const inputRef = useRef<HTMLInputElement>(null);
+
   const submit = () => {
     setIsConfirmVisible(false);
     setActivePopups(
@@ -36,6 +39,7 @@ const ConfirmPopup = () => {
         selectedPatient?.id,
       responsibility: name,
     });
+    setShouldUpdateLogList((prev) => !prev);
   };
   return (
     <Wrapper>

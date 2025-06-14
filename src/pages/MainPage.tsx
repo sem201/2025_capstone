@@ -4,7 +4,7 @@ import LogFrame from "@components/logFrame/LogFrame";
 import MapHeader from "@components/mainview/MapHeader";
 import MapContainer from "@components/map/MapContainer";
 import LogPopup from "@components/modal/LogPopup";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import ConfirmPopup from "@components/modal/ConfirmPopup";
 import EmergencyLogFrame from "@components/logFrame/EmergencyLogFrame";
@@ -15,6 +15,7 @@ import { useModalStore } from "@store/modalStore";
 
 const MainPage = () => {
   const [currentFloor, setCurrentFloor] = useState("전체");
+  const { setShouldUpdateLogList } = useModalStore();
 
   const {
     isConfirmVisible,
@@ -22,6 +23,10 @@ const MainPage = () => {
     isLocateVisible,
     activePopups,
   } = useModalStore();
+
+  useEffect(() => {
+    setShouldUpdateLogList(true);
+  }, [setShouldUpdateLogList]);
 
   useWebSocket();
 

@@ -14,6 +14,10 @@ interface ModalStore {
   setActivePopups: (popups: EmergencyEvent[]) => void;
   selectedPatient: any | null;
   setSelectedPatient: (patient: any | null) => void;
+  shouldUpdateLogList: boolean;
+  setShouldUpdateLogList: (
+    value: boolean | ((prev: boolean) => boolean)
+  ) => void;
 }
 
 export const useModalStore = create<ModalStore>((set) => ({
@@ -29,4 +33,10 @@ export const useModalStore = create<ModalStore>((set) => ({
   setActivePopups: (activePopups) => set({ activePopups }),
   selectedPatient: null,
   setSelectedPatient: (selectedPatient) => set({ selectedPatient }),
+  shouldUpdateLogList: false,
+  setShouldUpdateLogList: (value) =>
+    set((state) => ({
+      shouldUpdateLogList:
+        typeof value === "function" ? value(state.shouldUpdateLogList) : value,
+    })),
 }));
