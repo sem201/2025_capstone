@@ -19,7 +19,7 @@ export function useUpdateUser(
     existingDots.forEach((dot) => dot.remove());
     nameTexts.forEach((text) => text.remove());
     nameBgs.forEach((bg) => bg.remove());
-
+    console.log(userLocations);
     userLocations.map((location) => {
       if (location.type == "delete") return;
       // "전체"가 아닐 때만 층수 체크
@@ -41,13 +41,12 @@ export function useUpdateUser(
       dot.setAttribute("data-id", location.patientId);
       dot.setAttribute("cx", `${x}`);
       dot.setAttribute("cy", `${y}`);
-      dot.setAttribute("r", "10");
+      dot.setAttribute("r", "12");
       if (location.type == "emergency") {
         dot.setAttribute("fill", "#FF594D");
         dot.classList.add("blink-dot");
       } else if (location.type == "help") {
         dot.setAttribute("fill", "#FFA826");
-
         dot.classList.add("blink-dot");
       } else if (location.type == "active") {
         dot.setAttribute("fill", "#3151B3");
@@ -57,19 +56,20 @@ export function useUpdateUser(
       dot.setAttribute("stroke", "white");
       dot.setAttribute("stroke-width", "2");
 
-      dot.addEventListener("click", (e) => {
-        e.stopPropagation();
+      // 선택된 사용자에 대한 filter 설정
+      if (selectedUserId === location.id && location.type !== "active") {
         let shadowColor = "#3151B3";
         if (location.type === "emergency") shadowColor = "rgb(255, 17, 0)";
         else if (location.type === "help") shadowColor = "#FFA826";
-        dot.setAttribute("filter", `drop-shadow(0 0 8px ${shadowColor})`);
+        dot.setAttribute("filter", `drop-shadow(0 0 16px ${shadowColor})`);
+        dot.setAttribute("r", "16");
+      }
+
+      dot.addEventListener("click", (e) => {
+        e.stopPropagation();
+        dot.setAttribute("r", "16");
         if (onDotClick) onDotClick(location);
       });
-
-      // 말풍선이 닫히거나 다른 점이 선택되면 filter 제거
-      if (!selectedUserId || selectedUserId !== location.id) {
-        dot.removeAttribute("filter");
-      }
 
       const labelWidth = Math.max(60, location.name.length * 16);
       const labelHeight = 24;
@@ -102,6 +102,5 @@ export function useUpdateUser(
       svgRef.current?.appendChild(labelRect);
       svgRef.current?.appendChild(labelText);
     });
-    // console.log("현재 위치", userLocations);
   }, [userLocations, svgRef, currentFloor, onDotClick, selectedUserId]);
 }

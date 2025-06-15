@@ -34,6 +34,13 @@ const customList = () => {
 
   const handleLocationCheck = (user: UserLocation) => {
     setSelectedUser(user);
+    // 모든 점의 효과 초기화
+    const allDots = document.querySelectorAll(".location-dot");
+    allDots.forEach((dot) => {
+      dot.removeAttribute("filter");
+      dot.setAttribute("r", "10");
+    });
+
     const dot = document.querySelector(
       `.location-dot[data-id='${user.patientId}']`
     );
@@ -41,7 +48,8 @@ const customList = () => {
       let shadowColor = "#3151B3";
       if (user.type === "emergency") shadowColor = "rgb(255, 17, 0)";
       else if (user.type === "help") shadowColor = "#FFA826";
-      dot.setAttribute("filter", `drop-shadow(0 0 8px ${shadowColor})`);
+      dot.setAttribute("filter", `drop-shadow(0 0 16px ${shadowColor})`);
+      dot.setAttribute("r", "16");
     }
   };
 
