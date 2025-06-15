@@ -18,6 +18,7 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
   // 점 클릭 시 말풍선 변경
   const handleDotClick = useCallback(
     (user: UserLocation) => {
+      console.log("user", user);
       setSelectedUser(user);
     },
     [setSelectedUser]
@@ -26,18 +27,18 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
   const handleCloseBalloon = () => {
     // selectedUser를 먼저 저장
     const currentSelectedUser = selectedUser;
-    // 상태 업데이트
     console.log("currentSelectedUser", currentSelectedUser);
     setSelectedUser(null);
-
-    // dot의 filter 제거
-    const svg = svgRef5.current || svgRef6.current;
+    const svg = currentFloor === "5" ? svgRef5.current : svgRef6.current;
     if (svg && currentSelectedUser) {
       const dot = svg.querySelector(
         `.location-dot[data-id='${currentSelectedUser.patientId}']`
       );
-      console.log("dot", dot);
-      if (dot) dot.removeAttribute("filter");
+      console.log(svg);
+      if (dot) {
+        dot.removeAttribute("filter");
+        dot.setAttribute("r", "12");
+      }
     }
   };
 
@@ -48,6 +49,7 @@ const MapContainer = ({ currentFloor }: { currentFloor: string }) => {
     handleDotClick,
     selectedUser?.id
   );
+
   useUpdateUser(
     userLocations,
     svgRef6,
